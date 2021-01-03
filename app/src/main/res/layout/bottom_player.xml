@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="65dp"
+  android:background="@color/cardview_dark_background">
+
+
+  <ImageView
+    android:id="@+id/imgSongs"
+    android:layout_width="65dp"
+    android:layout_height="65dp"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="0dp"
+    android:src="@drawable/demo_image_songs_background"/>
+
+
+  <LinearLayout
+    android:id="@+id/layoutThongTin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="16dp"
+    android:layout_toLeftOf="@+id/imgYeuThich"
+    android:layout_toRightOf="@+id/imgSongs"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/txtbtmTenBaiHat"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      android:text="//Tên bài hát"/>
+
+    <TextView
+      android:id="@+id/txtbtmTenNgheSi"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0.5"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      android:text="//Tên nghệ sĩ"/>
+
+  </LinearLayout>
+
+
+  <ImageView
+    android:id="@+id/imgDungTiepTuc"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:clickable="true"
+    android:layout_marginRight="10dp"
+    android:src="@drawable/ic_baseline_pause_24"
+    app:tint="@color/white"/>
+
+  <ImageView
+    android:id="@+id/imgYeuThich"
+    android:layout_width="27dp"
+    android:layout_height="27dp"
+    android:layout_centerVertical="true"
+    android:layout_toLeftOf="@+id/imgDungTiepTuc"
+    android:clickable="true"
+    android:layout_marginRight="16dp"
+    android:src="@drawable/ic_baseline_favorite_24"
+    app:tint="@color/white"/>
+
+</RelativeLayout>
