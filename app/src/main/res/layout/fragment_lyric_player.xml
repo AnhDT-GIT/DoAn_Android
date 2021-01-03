@@ -14,9 +14,13 @@
     android:id="@+id/txtLyric"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:layout_gravity="center"
     android:text="Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric"
     android:textColor="@color/white"
-    android:textSize="20sp"/>
+    android:textSize="18sp"
+    android:padding="20dp"
+    android:lineSpacingExtra="10dp"
+    android:letterSpacing="0.04"/>
 
 </LinearLayout>
