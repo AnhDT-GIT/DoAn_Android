@@ -31,8 +31,8 @@ public class home extends Fragment {
     }
 
     View view;
-    RecyclerView lvTopNgheSi;
-    AdapterBanner adapterCasi;
+    RecyclerView lvBanner;
+    AdapterBanner adapterBanner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +40,7 @@ public class home extends Fragment {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_home, container, false);
           view = inflater.inflate(R.layout.fragment_home, container, false);
-          lvTopNgheSi = view.findViewById(R.id.lvBanner);
+          lvBanner = view.findViewById(R.id.lvBanner);
           GetData();
           return view;
     }
@@ -52,11 +52,11 @@ public class home extends Fragment {
             @Override
             public void onResponse(Call<List<Banner>> call, Response<List<Banner>> response) {
               ArrayList<Banner> bannerArrayList = (ArrayList<Banner>) response.body();
-              adapterCasi = new AdapterBanner(getActivity(), bannerArrayList);
+              adapterBanner = new AdapterBanner(getActivity(), bannerArrayList);
               LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
               linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-              lvTopNgheSi.setLayoutManager(linearLayoutManager);
-              lvTopNgheSi.setAdapter(adapterCasi);
+              lvBanner.setLayoutManager(linearLayoutManager);
+              lvBanner.setAdapter(adapterBanner);
             }
 
             @Override
