@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.doan_android.Fragment.lyric_player;
 import com.example.doan_android.Fragment.music_player;
+import com.example.doan_android.Fragment.playlist_player;
 
 public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
 
@@ -20,8 +21,10 @@ public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
   public Fragment getItem(int position) {
     switch (position){
       case 0:
-        return new music_player();
+        return new playlist_player();
       case 1:
+        return new music_player();
+      case 2:
         return new lyric_player();
       default:
         return new music_player();
@@ -30,7 +33,7 @@ public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
 
   @Override
   public int getCount() {
-    return 2;
+    return 3;
   }
 
   @Nullable
