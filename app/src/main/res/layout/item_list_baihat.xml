@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="horizontal"
+  android:layout_margin="5dp"
+  android:background="@color/cardview_dark_background">
+
+  <androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="10dp">
+
+    <ImageView
+      android:id="@+id/itemimgBaihat"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:scaleType="centerCrop"
+      android:layout_gravity="center_vertical"/>
+
+  </androidx.cardview.widget.CardView>
+
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/itemtxtTenBaiHat"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="5dp"
+      android:text="Rhymastic"
+      android:textColor="@color/white"
+      android:textSize="15sp"
+      android:layout_marginLeft="20dp"/>
+    <TextView
+      android:id="@+id/itemtxtTenCaSi"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="5dp"
+      android:text="Rhymastic"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      android:layout_marginLeft="20dp"
+      android:alpha="0.5"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
