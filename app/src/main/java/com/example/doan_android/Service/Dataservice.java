@@ -1,5 +1,6 @@
 package com.example.doan_android.Service;
 
+import com.example.doan_android.Model.Album;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
 
@@ -14,4 +15,7 @@ public interface Dataservice {
 
     @GET("playlist.php")
     Call<List<Playlist>> GetDataPlaylist();
+
+    @GET("album.php")
+    Call<List<Album>> GetDataAlbum();
 }
