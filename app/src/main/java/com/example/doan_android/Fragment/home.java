@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.doan_android.Adapter.AdapterAlbum;
 import com.example.doan_android.Adapter.AdapterBanner;
 import com.example.doan_android.Adapter.AdapterPlaylist;
+import com.example.doan_android.Model.Album;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
 import com.example.doan_android.R;
@@ -34,10 +36,11 @@ public class home extends Fragment {
 
     View view;
 
-    RecyclerView lvBanner, lvPlaylist;
+    RecyclerView lvBanner, lvPlaylist, lvAlbum;
 
     AdapterBanner adapterBanner;
     AdapterPlaylist adapterPlaylist;
+    AdapterAlbum adapterAlbum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +51,7 @@ public class home extends Fragment {
 
           lvBanner = view.findViewById(R.id.lvBanner);
           lvPlaylist = view.findViewById(R.id.lvPlaylist);
+          lvAlbum = view.findViewById(R.id.lvAlbum);
 
           GetData();
 
@@ -58,10 +62,10 @@ public class home extends Fragment {
           //Gọi interface Dataservice
           Dataservice dataservice = APIService.getService();
 
-          //Gọi hồn tất cả những thứ gì liên quan đến hiển thị trên recyclerview: banner
-          Call<List<Banner>> callbackbanner = dataservice.GetDataBanner() ;
+          //Gọi tất cả những thứ gì liên quan đến hiển thị trên recyclerview: banner
+          Call<List<Banner>> callbackbanner = dataservice.GetDataBanner();
           callbackbanner.enqueue(new Callback<List<Banner>>() {
-            @Override
+              @Override
             public void onResponse(Call<List<Banner>> call, Response<List<Banner>> response) {
               ArrayList<Banner> bannerArrayList = (ArrayList<Banner>) response.body();
               adapterBanner = new AdapterBanner(getActivity(), bannerArrayList);
@@ -77,8 +81,8 @@ public class home extends Fragment {
             }
           });
 
-          //Gọi hồn tất cả những thứ gì liên quan đến hiển thị trên recyclerview: playlist
-          Call<List<Playlist>> callbackplaylist = dataservice.GetDataPlaylist() ;
+          //Gọi tất cả những thứ gì liên quan đến hiển thị trên recyclerview: playlist
+          Call<List<Playlist>> callbackplaylist = dataservice.GetDataPlaylist();
           callbackplaylist.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
@@ -95,6 +99,25 @@ public class home extends Fragment {
 
             }
           });
+
+          Call<List<Album>> callbackalbum = dataservice.GetDataAlbum();
+          callbackalbum.enqueue(new Callback<List<Album>>() {
+            @Override
+            public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+              ArrayList<Album> albumArrayList = (ArrayList<Album>) response.body();
+              adapterAlbum = new AdapterAlbum(getActivity(), albumArrayList);
+              LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+              linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+              lvAlbum.setLayoutManager(linearLayoutManager);
+              lvAlbum.setAdapter(adapterAlbum);
+            }
+
+            @Override
+            public void onFailure(Call<List<Album>> call, Throwable t) {
+
+            }
+          });
+
     }
 
 
