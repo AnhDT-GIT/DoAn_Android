@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder>{
 
+    //Context cung cấp quyền truy cập đến các layout, drawable, activity, fragment,...
     Context context;
     ArrayList<Banner> bannerArrayList;
 
@@ -30,7 +31,9 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+      //LayoutInflater dùng để xml thành view của java
       LayoutInflater inflater = LayoutInflater.from(context);
+      //Nạp layout cho View biểu diễn item_recycler_banner
       View view = inflater.inflate(R.layout.item_recycler_banner, parent, false);
       return new ViewHolder(view);
     }
@@ -38,10 +41,15 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
       Banner banner = bannerArrayList.get(position);
+
+      //Lấy hình ảnh gánh vào itemimgBanner thông qua Picasso
       Picasso.get().load(banner.getHinhBaihat()).into(holder.itemimgBanner);
+
+      //Lấy nội dung banner và tên bài hát gán vào itemtxtNoiDungBanner
       holder.itemtxtNoiDungBanner.setText(banner.getTenBaihat() + " - " + banner.getNoidungBanner());
     }
 
+    //Mảng có bao nhiêu phần tử thì nó tự hiển thị ra bấy nhiêu
     @Override
     public int getItemCount() {
       return bannerArrayList.size();

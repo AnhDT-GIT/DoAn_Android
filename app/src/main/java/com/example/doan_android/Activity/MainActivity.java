@@ -44,15 +44,14 @@ public class MainActivity extends AppCompatActivity {
         layoutThongTin.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              openActivityPlayMusic();
+              startActivityPlayMusic();
           }
         });
     }
 
-    public void openActivityPlayMusic() {
+    public void startActivityPlayMusic() {
         Intent intent = new Intent(this, play_music.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
-
 }
