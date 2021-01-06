@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity android:name=".Activity.DsBaihat"></activity>
-        <activity android:name=".Activity.play_music" />
+        <activity android:name=".Activity.play_music"
+                  android:parentActivityName=".Activity.MainActivity">
+        </activity>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

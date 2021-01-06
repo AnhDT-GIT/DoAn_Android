@@ -9,9 +9,11 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.doan_android.Adapter.AdapterPlayerMusic;
 import com.example.doan_android.R;
@@ -26,6 +28,7 @@ public class play_music extends AppCompatActivity {
     //Add view
     private TabLayout tabPlayerMusic;
     private ViewPager view_pager_music;
+    //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     TextView txtMusicTenBaiHat, txtMusicTenNgheSi, txtMusic, txtTimeSong, txtTotalTimeSong;
     SeekBar barTime;
@@ -37,22 +40,23 @@ public class play_music extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_music);
 
-      tabPlayerMusic = findViewById(R.id.tabPlayerMusic);
-      view_pager_music = findViewById(R.id.view_pager_music);
+        tabPlayerMusic = findViewById(R.id.tabPlayerMusic);
+        view_pager_music = findViewById(R.id.view_pager_music);
 
-      //ViewPager for display fragments
-      AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-      view_pager_music.setAdapter(adaptermusic);
-      tabPlayerMusic.setupWithViewPager(view_pager_music);
+        //ViewPager for display fragments
+        AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        view_pager_music.setAdapter(adaptermusic);
+        tabPlayerMusic.setupWithViewPager(view_pager_music);
 
-      //Set icon
-      tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_list_alt_24);
-      tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
-      tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
+        //Set icon
+        tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_list_alt_24);
+        tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
+        tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
 
     }
 
-    class PlayMp3 extends AsyncTask<String, Void, String> {
+
+  class PlayMp3 extends AsyncTask<String, Void, String> {
 
       @Override
       protected String doInBackground(String... strings) {

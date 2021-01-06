@@ -126,12 +126,11 @@
       android:background="@drawable/ic_baseline_skip_previous_24"
       android:onClick="btnPreClick" />
 
-    <ImageButton
+    <ImageView
       android:id="@+id/btnPlay"
       android:layout_width="45dp"
       android:layout_height="45dp"
-      android:background="@drawable/ic_baseline_play_arrow_24"
-      android:onClick="btnPlayClick" />
+      android:src="@drawable/ic_baseline_play_arrow_24" />
 
     <ImageButton
       android:id="@+id/btnPlayNext"
