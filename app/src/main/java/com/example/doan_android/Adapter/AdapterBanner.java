@@ -1,6 +1,7 @@
 package com.example.doan_android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doan_android.Activity.DsBaihat;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
@@ -47,6 +49,14 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
 
       //Lấy nội dung banner và tên bài hát gán vào itemtxtNoiDungBanner
       holder.itemtxtNoiDungBanner.setText(banner.getTenBaihat() + " - " + banner.getNoidungBanner());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context, DsBaihat.class);
+                intent.putExtra("banner",bannerArrayList.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     //Mảng có bao nhiêu phần tử thì nó tự hiển thị ra bấy nhiêu

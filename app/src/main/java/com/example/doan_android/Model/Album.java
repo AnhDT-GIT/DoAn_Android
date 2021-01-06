@@ -3,7 +3,9 @@ package com.example.doan_android.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Album{
+import java.io.Serializable;
+
+public class Album implements Serializable {
   @SerializedName("id_album")
   @Expose
   private String idAlbum;
@@ -48,4 +50,5 @@ public class Album{
   public void setIdCasi(String idCasi) {
     this.idCasi = idCasi;
   }
+
 }

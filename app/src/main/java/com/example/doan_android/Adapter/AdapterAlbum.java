@@ -1,6 +1,7 @@
 package com.example.doan_android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doan_android.Activity.DsBaihat;
 import com.example.doan_android.Model.Album;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
@@ -43,6 +45,14 @@ public class AdapterAlbum extends RecyclerView.Adapter<AdapterAlbum.ViewHolder>{
       Album album = albumArrayList.get(position);
       Picasso.get().load(album.getHinhAlbum()).into(holder.itemimgAlbum);
       holder.itemtxtTenAlbum.setText(album.getTenAlbum());
+      holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(context, DsBaihat.class);
+                intent.putExtra("album",albumArrayList.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
