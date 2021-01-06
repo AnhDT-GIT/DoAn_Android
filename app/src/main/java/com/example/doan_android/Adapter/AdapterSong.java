@@ -1,6 +1,8 @@
 package com.example.doan_android.Adapter;
 
 import android.content.Context;
+import android.media.Image;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,12 @@ import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
 
-  //Context cung cấp quyền truy cập đến các layout, drawable, activity, fragment,...
   Context context;
   ArrayList<Baihat> baihatArrayList;
 
@@ -31,43 +34,35 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-    //LayoutInflater dùng để xml thành view của java
     LayoutInflater inflater = LayoutInflater.from(context);
-    //Nạp layout cho View biểu diễn item_recycler_banner
     View view = inflater.inflate(R.layout.item_list_baihat, parent, false);
+
     return new ViewHolder(view);
+
   }
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
     Baihat baihat = baihatArrayList.get(position);
-
-    //Lấy hình ảnh gánh vào itemimgBanner thông qua Picasso
-    Picasso.get().load(baihat.getHinhBaihat()).into(holder.itemimgBaihat);
-
-    //Lấy nội dung banner và tên bài hát gán vào itemtxtNoiDungBanner
-    holder.itemtxtTenBaiHat.setText(baihat.getTenBaihat());
     holder.itemtxtTenCaSi.setText(baihat.getTenCasi());
+    holder.itemtxtTenBaiHat.setText(baihat.getTenBaihat());
+    Picasso.get().load(baihat.getHinhBaihat()).into(holder.itemimgBaiHat);
+
   }
 
-  //Mảng có bao nhiêu phần tử thì nó tự hiển thị ra bấy nhiêu
   @Override
-  public int getItemCount() {
-    return baihatArrayList.size();
-  }
+  public int getItemCount() { return baihatArrayList.size(); }
 
   public class ViewHolder extends RecyclerView.ViewHolder{
-
-    ImageView itemimgBaihat;
-    TextView itemtxtTenBaiHat, itemtxtTenCaSi;
-
-    public ViewHolder(View itemView){
-      super(itemView);
-      itemimgBaihat = itemView.findViewById(R.id.itemimgBaihat);
-      itemtxtTenBaiHat = itemView.findViewById(R.id.itemtxtTenBaiHat);
-      itemtxtTenCaSi = itemView.findViewById(R.id.itemtxtTenCaSi);
-    }
-  }
+          TextView itemtxtTenBaiHat, itemtxtTenCaSi;
+          ImageView itemimgBaiHat;
+          public ViewHolder(View itemView){
+              super(itemView);
+              itemtxtTenCaSi = itemView.findViewById(R.id.itemtxtTenCaSi);
+              itemtxtTenBaiHat = itemView.findViewById(R.id.itemtxtTenBaiHat);
+              itemimgBaiHat = itemView.findViewById(R.id.itemimgBaihat);
+          }
+      }
 
 }

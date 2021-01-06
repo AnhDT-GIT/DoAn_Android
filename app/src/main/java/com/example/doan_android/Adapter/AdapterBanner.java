@@ -43,7 +43,7 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
       Banner banner = bannerArrayList.get(position);
 
       //Lấy hình ảnh gánh vào itemimgBanner thông qua Picasso
-      Picasso.get().load(banner.getHinhBaihat()).into(holder.itemimgBanner);
+      Picasso.get().load(banner.getHinhBanner()).into(holder.itemimgBanner);
 
       //Lấy nội dung banner và tên bài hát gán vào itemtxtNoiDungBanner
       holder.itemtxtNoiDungBanner.setText(banner.getTenBaihat() + " - " + banner.getNoidungBanner());
@@ -59,6 +59,7 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
 
           ImageView itemimgBanner;
           TextView itemtxtNoiDungBanner;
+
           public ViewHolder(View itemView){
               super(itemView);
               itemimgBanner = itemView.findViewById(R.id.itemimgBanner);
