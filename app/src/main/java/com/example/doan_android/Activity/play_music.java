@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -13,9 +14,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.doan_android.Adapter.AdapterPlayerMusic;
+import com.example.doan_android.Model.Album;
+import com.example.doan_android.Model.Baihat;
+import com.example.doan_android.Model.Banner;
+import com.example.doan_android.Model.Playlist;
 import com.example.doan_android.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,6 +34,7 @@ public class play_music extends AppCompatActivity {
     //Add view
     private TabLayout tabPlayerMusic;
     private ViewPager view_pager_music;
+    Baihat baihat;
     //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
     TextView txtMusicTenBaiHat, txtMusicTenNgheSi, txtMusic, txtTimeSong, txtTotalTimeSong;
@@ -52,45 +59,54 @@ public class play_music extends AppCompatActivity {
         tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_list_alt_24);
         tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
         tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
+        Getdata();
 
     }
 
 
-  class PlayMp3 extends AsyncTask<String, Void, String> {
+    class PlayMp3 extends AsyncTask<String, Void, String> {
 
-      @Override
-      protected String doInBackground(String... strings) {
-        return strings[0];
-      }
+        @Override
+        protected String doInBackground(String... strings) {
+            return strings[0];
+        }
 
-      @Override
-      protected void onPostExecute(String baihat) {
-          super.onPostExecute(baihat);
-          try {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
+        @Override
+        protected void onPostExecute(String baihat) {
+            super.onPostExecute(baihat);
+            try {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
+                    }
+                });
+                mediaPlayer.setDataSource(baihat);
+                mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            });
-            mediaPlayer.setDataSource(baihat);
-            mediaPlayer.prepare();
+            mediaPlayer.start();
+            TimeSong();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-          mediaPlayer.start();
-          TimeSong();
-      }
     }
 
     private void TimeSong() {
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-      txtTotalTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
-      barTime.setMax(mediaPlayer.getDuration());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+        txtTotalTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
+        barTime.setMax(mediaPlayer.getDuration());
     }
 
+    private void Getdata() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("baihats")) {
+                baihat = (Baihat) intent.getParcelableExtra("baihats");
+                Toast.makeText(play_music.this, baihat.getTenBaihat(),Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.doan_android.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -8,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doan_android.Activity.DsBaihat;
+import com.example.doan_android.Activity.play_music;
 import com.example.doan_android.Model.Baihat;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
@@ -36,7 +40,6 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(context);
     View view = inflater.inflate(R.layout.item_list_baihat, parent, false);
-
     return new ViewHolder(view);
 
   }
@@ -48,6 +51,14 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
     holder.itemtxtTenCaSi.setText(baihat.getTenCasi());
     holder.itemtxtTenBaiHat.setText(baihat.getTenBaihat());
     Picasso.get().load(baihat.getHinhBaihat()).into(holder.itemimgBaiHat);
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent= new Intent(context, play_music.class);
+            intent.putExtra("baihats",baihatArrayList.get(position));
+            context.startActivity(intent);
+        }
+    });
 
   }
 

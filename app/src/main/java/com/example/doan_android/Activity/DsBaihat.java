@@ -112,7 +112,6 @@ public class DsBaihat extends AppCompatActivity {
           adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
           lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
           lvListSongs.setAdapter(adapterSong);
-          Toast.makeText(DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_LONG).show();
       }
 
       @Override

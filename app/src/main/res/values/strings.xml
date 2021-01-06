@@ -2,9 +2,9 @@
     <string name="app_name">ACTH</string>
 
     <string name="banner">Nội dung nổi bật</string>
-    <string name="album">Các album</string>
+    <string name="album">ALBUM</string>
     <string name="recenttrack">Những bài hát nghe gần đây</string>
-    <string name="playlist">Các playlist</string>
+    <string name="playlist">PLAYLIST</string>
 
     <string name="home">Trang chủ</string>
     <string name="song">Bài hát</string>
