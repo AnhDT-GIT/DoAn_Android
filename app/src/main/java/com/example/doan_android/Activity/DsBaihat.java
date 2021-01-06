@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.doan_android.Model.Album;
 import com.example.doan_android.Model.Baihat;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
@@ -30,9 +31,12 @@ import retrofit2.Response;
 
 public class DsBaihat extends AppCompatActivity {
     Playlist playlist;
+    Album album;
+    Banner banner;
     ArrayList<Baihat> baihatArrayList;
+    ArrayList<Album> albumArrayList;
+    ArrayList<Banner> bannerArrayList;
     ArrayAdapter<Baihat> arrayAdapter;
-    ListView listView= this.findViewById(R.id.list_item);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,14 @@ public class DsBaihat extends AppCompatActivity {
         if(playlist !=null )
         {
             GetdataPlaylist(playlist.getIdPlaylist());
+        }
+        else if( album !=null)
+        {
+            GetdataAlbum(album.getIdAlbum());
+        }
+        else if( banner !=null)
+        {
+            GetdataBanner(banner.getIdBaihat());
         }
     }
 
@@ -51,6 +63,39 @@ public class DsBaihat extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
                  baihatArrayList= (ArrayList<Baihat>) response.body();
+                 Toast.makeText( DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void GetdataAlbum(String id_albums) {
+         Dataservice dataservice= APIService.getService();
+         Call<List<Baihat>> callback= dataservice.GetDataAlbum(id_albums);
+         callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                baihatArrayList= (ArrayList<Baihat>) response.body();
+                Toast.makeText( DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void GetdataBanner(String id_banners) {
+        Dataservice dataservice= APIService.getService();
+        Call<List<Baihat>> callback= dataservice.GetDataAlbum(id_banners);
+        callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                baihatArrayList= (ArrayList<Baihat>) response.body();
+                Toast.makeText( DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -67,6 +112,14 @@ public class DsBaihat extends AppCompatActivity {
             if(intent.hasExtra("playlist"))
             {
                 playlist= (Playlist) intent.getSerializableExtra("playlist");
+            }
+             else if (intent.hasExtra("album"))
+            {
+                album= (Album)  intent.getSerializableExtra("album");
+            }
+             else
+            {
+                banner= (Banner)  intent.getSerializableExtra("banner");
             }
         }
     }
