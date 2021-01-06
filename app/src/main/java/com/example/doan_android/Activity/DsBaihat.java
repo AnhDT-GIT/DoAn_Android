@@ -51,12 +51,19 @@ public class DsBaihat extends AppCompatActivity {
     Getdata();
 
     lvListSongs = findViewById(R.id.lvListSongs);
-//    GetdataPlaylist(playlist.getIdPlaylist());
-
     if(playlist != null )
     {
       GetdataPlaylist(playlist.getIdPlaylist());
     }
+      if(album != null )
+      {
+          GetdataAlbum(album.getIdAlbum());
+      }
+      if(banner != null )
+      {
+          GetdataBanner(banner.getIdBanner());
+      }
+
   }
 
   private void GetdataPlaylist(String id_playlist) {
@@ -69,7 +76,6 @@ public class DsBaihat extends AppCompatActivity {
         adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
         lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
         lvListSongs.setAdapter(adapterSong);
-        Log.d("BBB", baihatArrayList.get(0).getTenBaihat());
       }
 
       @Override
@@ -78,38 +84,43 @@ public class DsBaihat extends AppCompatActivity {
       }
     });
   }
-//  private void GetdataAlbum(String id_albums) {
-//    Dataservice dataservice= APIService.getService();
-//    Call<List<Baihat>> callback= dataservice.GetDataAlbum(id_albums);
-//    callback.enqueue(new Callback<List<Baihat>>() {
-//      @Override
-//      public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
-//        baihatArrayList= (ArrayList<Baihat>) response.body();
-//        Toast.makeText( DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_SHORT).show();
-//      }
-//
-//      @Override
-//      public void onFailure(Call<List<Baihat>> call, Throwable t) {
-//
-//      }
-//    });
-//  }
-//  private void GetdataBanner(String id_banners) {
-//    Dataservice dataservice= APIService.getService();
-//    Call<List<Baihat>> callback= dataservice.GetDataAlbum(id_banners);
-//    callback.enqueue(new Callback<List<Baihat>>() {
-//      @Override
-//      public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
-//        baihatArrayList= (ArrayList<Baihat>) response.body();
-//        Toast.makeText( DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_SHORT).show();
-//      }
-//
-//      @Override
-//      public void onFailure(Call<List<Baihat>> call, Throwable t) {
-//
-//      }
-//    });
-//  }
+  private void GetdataAlbum(String id_albums) {
+    Dataservice dataservice= APIService.getService();
+    Call<List<Baihat>> callback= dataservice.GetDataAlbum(id_albums);
+    callback.enqueue(new Callback<List<Baihat>>() {
+      @Override
+      public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+       baihatArrayList= (ArrayList<Baihat>) response.body();
+          adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
+          lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
+          lvListSongs.setAdapter(adapterSong);
+     }
+
+      @Override
+      public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+     }
+   });
+  }
+  private void GetdataBanner(String id_banners) {
+    Dataservice dataservice= APIService.getService();
+    Call<List<Baihat>> callback= dataservice.GetDataBanner(id_banners);
+        callback.enqueue(new Callback<List<Baihat>>() {
+      @Override
+     public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+          baihatArrayList= (ArrayList<Baihat>) response.body();
+          adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
+          lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
+          lvListSongs.setAdapter(adapterSong);
+          Toast.makeText(DsBaihat.this, baihatArrayList.get(0).getTenBaihat(),Toast.LENGTH_LONG).show();
+      }
+
+      @Override
+     public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+     }
+    });
+  }
 
   private void Getdata() {
     Intent intent=getIntent();
