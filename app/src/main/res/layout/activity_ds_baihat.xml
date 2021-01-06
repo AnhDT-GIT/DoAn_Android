@@ -5,11 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.DsBaihat">
 
     <ListView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="10dp"/>
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hung"
+            android:textColor="@color/red"></TextView>
+    </ListView>
 
 </LinearLayout>

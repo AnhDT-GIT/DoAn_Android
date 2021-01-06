@@ -1,13 +1,19 @@
 package com.example.doan_android.Service;
 
+import android.util.Log;
+
 import com.example.doan_android.Model.Album;
+import com.example.doan_android.Model.Baihat;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface Dataservice {
     @GET("banner.php")
@@ -18,4 +24,8 @@ public interface Dataservice {
 
     @GET("album.php")
     Call<List<Album>> GetDataAlbum();
+    @FormUrlEncoded
+    @POST("baihattheoplaylist.php")
+    Call<List<Baihat>> GetDataBaihat(@Field("id_playlists") String id_playlists);
+
 }

@@ -50,7 +50,6 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHo
         Intent intent= new Intent(context, DsBaihat.class);
         intent.putExtra("playlist",playlistArrayList.get(position));
         context.startActivity(intent);
-        System.out.println(position);
       }
     });
   }

@@ -61,4 +61,11 @@ public void setTenCasi(String tenCasi) {
 this.tenCasi = tenCasi;
 }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Baihat{");
+        sb.append("tenBaihat='").append(tenBaihat).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
