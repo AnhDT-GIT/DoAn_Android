@@ -31,8 +31,6 @@ import retrofit2.Response;
 public class DsBaihat extends AppCompatActivity {
     Playlist playlist;
     ArrayList<Baihat> baihatArrayList;
-    ArrayAdapter<Baihat> arrayAdapter;
-    ListView listView= this.findViewById(R.id.list_item);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +49,7 @@ public class DsBaihat extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
                  baihatArrayList= (ArrayList<Baihat>) response.body();
+                System.out.println(baihatArrayList.get(0).getTenBaihat());
             }
 
             @Override
@@ -68,6 +67,14 @@ public class DsBaihat extends AppCompatActivity {
             {
                 playlist= (Playlist) intent.getSerializableExtra("playlist");
             }
+        }
+    }
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        ListView listView;
+        public ViewHolder(View itemView){
+            super(itemView);
+            ListView listView= itemView.findViewById(R.id.list_item);
         }
     }
 }

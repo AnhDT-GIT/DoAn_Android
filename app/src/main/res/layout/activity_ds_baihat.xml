@@ -7,17 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.DsBaihat">
-
     <ListView
-        android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="hung"
-            android:textColor="@color/red"></TextView>
+        android:layout_height="match_parent"
+        android:id="@+id/list_item">
     </ListView>
 
 </LinearLayout>
