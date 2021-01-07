@@ -21,13 +21,13 @@ public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
   public Fragment getItem(int position) {
     switch (position){
       case 0:
-        return new playlist_player();
+        return (new playlist_player());
       case 1:
-        return new music_player();
+        return (new music_player());
       case 2:
-        return new lyric_player();
+        return (new lyric_player());
       default:
-        return new music_player();
+        return (new music_player());
     }
   }
 

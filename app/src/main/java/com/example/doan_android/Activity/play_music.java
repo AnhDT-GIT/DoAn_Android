@@ -42,7 +42,8 @@ public class play_music extends AppCompatActivity {
     public static ArrayList<Baihat> baihatArrayList = new ArrayList<>();
     //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     AdapterSong adapterSong;
-    AdapterPlayerMusic adapterPlayerMusic;
+    //AdapterPlayerMusic adapterPlayerMusic;
+    AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
     Baihat baihat;
 
@@ -70,10 +71,10 @@ public class play_music extends AppCompatActivity {
         btnPlayNext = findViewById(R.id.btnPlayNext);
         btnPlayLoop = findViewById(R.id.btnPlayLoop);
         //ViewPager for display fragments
-        AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        //AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         view_pager_music.setAdapter(adaptermusic);
         tabPlayerMusic.setupWithViewPager(view_pager_music);
-        musicplayer = (music_player) adapterPlayerMusic.getItem(0);
+        musicplayer = (music_player) adaptermusic.getItem(1);
 
         if (baihatArrayList.size() > 0){
             new PlayMp3File().execute(baihatArrayList.get(0).getUrlBaihat());
@@ -144,7 +145,7 @@ public class play_music extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
           @Override
           public void run() {
-              if (adapterPlayerMusic.getItem(1) != null){
+              if (adaptermusic.getItem(1) != null){
                 if(baihatArrayList.size() > 0){
                     musicplayer.Playnhac(baihatArrayList.get(0).getHinhBaihat());
                     handler.removeCallbacks(this);
