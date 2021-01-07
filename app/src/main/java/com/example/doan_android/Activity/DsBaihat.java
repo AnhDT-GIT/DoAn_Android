@@ -74,6 +74,7 @@ public class DsBaihat extends AppCompatActivity {
       public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
         baihatArrayList=(ArrayList<Baihat>) response.body();
         adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
+        System.out.println(baihatArrayList.get(0).getTenBaihat());
         lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
         lvListSongs.setAdapter(adapterSong);
       }

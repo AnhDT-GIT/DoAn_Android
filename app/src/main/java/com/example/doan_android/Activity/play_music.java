@@ -75,10 +75,12 @@ public class play_music extends AppCompatActivity {
         view_pager_music.setAdapter(adaptermusic);
         tabPlayerMusic.setupWithViewPager(view_pager_music);
         musicplayer = (music_player) adaptermusic.getItem(1);
+        GetDataFromItent();
 
         if (baihatArrayList.size() > 0){
             new PlayMp3File().execute(baihatArrayList.get(0).getUrlBaihat());
             btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
+
         }
 
         //Set icon
@@ -86,16 +88,13 @@ public class play_music extends AppCompatActivity {
         tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
         tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
 
-        GetDataFromItent();
 
         EventClick();
 
-        Getdata();
 
     }
 
   class PlayMp3File extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... strings) {
             return strings[0];
@@ -120,24 +119,14 @@ public class play_music extends AppCompatActivity {
                 e.printStackTrace();
             }
             mediaPlayer.start();
-            TimeSong();
+           //TimeSong();
         }
     }
 
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
         txtTotalTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
-        barTime.setMax(mediaPlayer.getDuration());
-    }
-
-    private void Getdata() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.hasExtra("baihats")) {
-                baihat = (Baihat) intent.getParcelableExtra("baihats");
-                Toast.makeText(play_music.this, baihat.getTenBaihat(),Toast.LENGTH_LONG).show();
-            }
-        }
+       // barTime.setMax(mediaPlayer.getDuration());
     }
 
     private void EventClick(){
@@ -147,7 +136,7 @@ public class play_music extends AppCompatActivity {
           public void run() {
               if (adaptermusic.getItem(1) != null){
                 if(baihatArrayList.size() > 0){
-                    musicplayer.Playnhac(baihatArrayList.get(0).getHinhBaihat());
+                   // musicplayer.Playnhac(baihatArrayList.get(0).getHinhBaihat());
                     handler.removeCallbacks(this);
                 }
                 else{
@@ -176,8 +165,8 @@ public class play_music extends AppCompatActivity {
       Intent intent = getIntent();
       baihatArrayList.clear();
       if(intent != null){
-        if(intent.hasExtra("cakhuc")){
-          Baihat baihat = intent.getParcelableExtra("cakhuc");
+        if(intent.hasExtra("baihats")){
+          Baihat baihat = intent.getParcelableExtra("baihats");
           baihatArrayList.add(baihat);
         }
         if(intent.hasExtra("cacbaihat")){
