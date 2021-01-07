@@ -46,7 +46,7 @@
       android:padding="5dp"
       android:text="Rhymastic"
       android:textColor="@color/white"
-      android:textSize="12sp"
+      android:textSize="15sp"
       android:layout_marginLeft="10dp"
       android:alpha="0.5"/>
     </LinearLayout>

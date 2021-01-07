@@ -7,20 +7,24 @@
   tools:context="com.example.doan_android.Activity.play_music"
   android:orientation="vertical"
   android:background="@color/cardview_dark_background"
-  android:gravity="center_horizontal"
+  android:gravity="center"
   android:padding="10dp">
 
-  <TextView
-    android:id="@+id/txtLyric"
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_gravity="center"
-    android:text="Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric"
-    android:textColor="@color/white"
-    android:textSize="18sp"
-    android:padding="20dp"
-    android:lineSpacingExtra="10dp"
-    android:letterSpacing="0.05"/>
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <TextView
+      android:id="@+id/txtLyric"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric Đây là Lyric"
+      android:textColor="@color/white"
+      android:textSize="18sp"
+      android:padding="20dp"
+      android:lineSpacingExtra="10dp"
+      android:letterSpacing="0.05"/>
+  </ScrollView>
 
 </LinearLayout>

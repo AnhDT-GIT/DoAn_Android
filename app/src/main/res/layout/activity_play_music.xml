@@ -20,8 +20,132 @@
   <androidx.viewpager.widget.ViewPager
     android:id="@+id/view_pager_music"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
+    android:layout_above="@+id/layoutPlayer"
     android:layout_below="@+id/tabPlayerMusic"
-    android:layout_marginTop="0dp" />
+    android:layout_marginBottom="0dp" />
+
+  <LinearLayout
+    android:id="@+id/layoutPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="0dp"
+    android:orientation="vertical"
+    android:background="@color/cardview_dark_background">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp">
+
+      <SeekBar
+        android:id="@+id/barTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:id="@+id/txtTimeSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:text="0:00"
+        android:textColor="@color/white"
+        android:alpha="0.5"/>
+
+      <TextView
+        android:id="@+id/txtTotalTimeSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:text="3:00"
+        android:textColor="@color/white"
+        android:alpha="0.5"/>
+    </RelativeLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/txtMusicTenBaiHat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="//Tên bài hát"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+      <TextView
+        android:id="@+id/txtMusicTenNgheSi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:gravity="center"
+        android:text="//Tên nghệ sĩ"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="35dp"
+      android:gravity="center"
+      android:orientation="horizontal">
+
+      <ImageButton
+        android:id="@+id/btnPlayShuffle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/ic_baseline_shuffle_24"
+        android:onClick="btnShuffleClick" />
+
+      <ImageButton
+        android:id="@+id/btnPlayPre"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ic_baseline_skip_previous_24"
+        android:onClick="btnPreClick" />
+
+      <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_baseline_play_arrow_24" />
+
+      <ImageButton
+        android:id="@+id/btnPlayNext"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ic_baseline_skip_next_24"
+        android:onClick="btnNextClick" />
+
+      <ImageButton
+        android:id="@+id/btnPlayLoop"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/ic_baseline_loop_24"
+        android:onClick="btnLoopClick" />
+    </LinearLayout>
+
+  </LinearLayout>
 
 </RelativeLayout>
