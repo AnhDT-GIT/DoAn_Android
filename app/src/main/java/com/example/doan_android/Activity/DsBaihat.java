@@ -69,6 +69,10 @@ public class DsBaihat extends AppCompatActivity {
       if( text !=null)
       {
           GetdataTimkiem(text);
+          if(baihatArrayList ==null)
+          {
+              Toast.makeText(DsBaihat.this, " Không có bài hát bạn tìm kiếm", Toast.LENGTH_SHORT).show();
+          }
       }
      playall.setOnClickListener(new View.OnClickListener() {
          @Override
