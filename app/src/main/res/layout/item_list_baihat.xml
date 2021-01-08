@@ -34,7 +34,7 @@
       android:id="@+id/itemtxtTenBaiHat"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="5dp"
+
       android:text="Rhymastic"
       android:textColor="@color/white"
       android:textSize="15sp"
@@ -43,7 +43,6 @@
       android:id="@+id/itemtxtTenCaSi"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="5dp"
       android:text="Rhymastic"
       android:textColor="@color/white"
       android:textSize="15sp"

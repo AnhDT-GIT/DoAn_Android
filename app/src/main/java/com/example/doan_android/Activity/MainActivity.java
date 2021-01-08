@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     //Add view
     private TabLayout tabMain;
     private ViewPager view_Pager;
-    private LinearLayout layoutThongTin;
+    //private LinearLayout layoutThongTin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         tabMain.getTabAt(1).setIcon(R.drawable.ic_baseline_search_24);
 
         //Ấn vào player dưới màn hình để vào activity play music
-        layoutThongTin = findViewById(R.id.layoutThongTin);
-        layoutThongTin.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              startActivityPlayMusic();
-          }
-        });
+//        layoutThongTin = findViewById(R.id.layoutThongTin);
+//        layoutThongTin.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View view) {
+//              startActivityPlayMusic();
+//          }
+//        });
     }
 
     public void startActivityPlayMusic() {

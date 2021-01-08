@@ -98,7 +98,8 @@
         android:gravity="center"
         android:text="//Tên nghệ sĩ"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="18dp"
+        android:paddingTop="5dp"/>
 
     </LinearLayout>
 
@@ -110,40 +111,27 @@
       android:orientation="horizontal">
 
       <ImageButton
-        android:id="@+id/btnPlayShuffle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/ic_baseline_shuffle_24"
-        android:onClick="btnShuffleClick" />
-
-      <ImageButton
         android:id="@+id/btnPlayPre"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/ic_baseline_skip_previous_24"
-        android:onClick="btnPreClick" />
+        android:onClick="btnPreClick"
+        android:layout_marginRight="20dp"/>
 
       <ImageView
         android:id="@+id/btnPlay"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_baseline_play_arrow_24" />
 
       <ImageButton
         android:id="@+id/btnPlayNext"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/ic_baseline_skip_next_24"
-        android:onClick="btnNextClick" />
+        android:onClick="btnNextClick"
+        android:layout_marginLeft="20dp"/>
 
-      <ImageButton
-        android:id="@+id/btnPlayLoop"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/ic_baseline_loop_24"
-        android:onClick="btnLoopClick" />
     </LinearLayout>
 
   </LinearLayout>

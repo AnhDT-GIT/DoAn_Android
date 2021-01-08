@@ -54,7 +54,7 @@ public class play_music extends AppCompatActivity {
 
     TextView txtMusicTenBaiHat, txtMusicTenNgheSi, txtTimeSong, txtTotalTimeSong;
     SeekBar barTime;
-    ImageView btnPlayShuffle, btnPlayPre, btnPlay, btnPlayNext, btnPlayLoop;
+    ImageView btnPlayPre, btnPlay, btnPlayNext;
     MediaPlayer mediaPlayer;
     music_player musicplayer;
 
@@ -71,16 +71,14 @@ public class play_music extends AppCompatActivity {
         txtTimeSong = findViewById(R.id.txtTimeSong);
         txtTotalTimeSong = findViewById(R.id.txtTotalTimeSong);
         btnPlay = findViewById(R.id.btnPlay);
-        btnPlayShuffle = findViewById(R.id.btnPlayShuffle);
         btnPlayPre = findViewById(R.id.btnPlayPre);
         btnPlayNext = findViewById(R.id.btnPlayNext);
-        btnPlayLoop = findViewById(R.id.btnPlayLoop);
         barTime = findViewById(R.id.barTime);
         //ViewPager for display fragments
         //AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         view_pager_music.setAdapter(adaptermusic);
         tabPlayerMusic.setupWithViewPager(view_pager_music);
-        musicplayer = (music_player) adaptermusic.getItem(1);
+        musicplayer = (music_player) adaptermusic.getItem(0);
 
         EventClick();
         GetData();
@@ -99,9 +97,8 @@ public class play_music extends AppCompatActivity {
         }
 
         //Set icon
-        tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_list_alt_24);
-        tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
-        tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
+        tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_music_note_24).select();
+        tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_text_fields_24);
 
     }
 
