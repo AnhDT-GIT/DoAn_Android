@@ -55,8 +55,12 @@ public class play_music extends AppCompatActivity {
     TextView txtMusicTenBaiHat, txtMusicTenNgheSi, txtTimeSong, txtTotalTimeSong;
     SeekBar barTime;
     ImageView btnPlayPre, btnPlay, btnPlayNext;
+
     MediaPlayer mediaPlayer;
     music_player musicplayer;
+
+    boolean next = false;
+    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,5 +191,96 @@ public class play_music extends AppCompatActivity {
               }
           }
         });
+        barTime.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+          @Override
+          public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+          }
+
+          @Override
+          public void onStartTrackingTouch(SeekBar seekBar) {
+
+          }
+
+          @Override
+          public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
+          }
+        });
+
+        btnPlayNext.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+                if(baihatArrayList.size() > 0){
+                    if(mediaPlayer.isPlaying() || mediaPlayer != null){
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    if(position < (baihatArrayList.size())){
+                        btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
+                        position++;
+                        if(position > (baihatArrayList.size() - 1)){
+                          position = 0;
+                        }
+                        new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
+                        musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
+                        //NEXT LOG
+                        System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
+                        txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
+                        txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                    }
+                }
+                btnPlayPre.setClickable(false);
+                btnPlayNext.setClickable(false);
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                  @Override
+                  public void run() {
+                    btnPlayPre.setClickable(true);
+                    btnPlayNext.setClickable(true);
+                  }
+                }, 5000);
+          }
+        });
+
+        //PRE
+        btnPlayPre.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if(baihatArrayList.size() > 0){
+              if(mediaPlayer.isPlaying() || mediaPlayer != null){
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+              }
+              if(position < (baihatArrayList.size())){
+                btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
+                position--;
+
+                if(position < 0){
+                  position = baihatArrayList.size() - 1;
+                }
+
+                new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
+                musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
+                txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
+                txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+              }
+            }
+            btnPlayPre.setClickable(false);
+            btnPlayNext.setClickable(false);
+            Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+              @Override
+              public void run() {
+                btnPlayPre.setClickable(true);
+                btnPlayNext.setClickable(true);
+              }
+            }, 5000);
+
+          }
+        });
+
     }
 }
