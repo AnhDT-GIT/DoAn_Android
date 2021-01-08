@@ -16,27 +16,25 @@
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:padding="5dp"
         android:orientation="vertical">
-          <Button
-              android:id="@+id/timkiem"
-              android:layout_marginTop="30dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textAlignment="center"
-              android:textColor="@color/white"
-              android:textStyle="bold"
-              android:textSize="18sp"
-              android:text="@string/search"/>
 
-       <EditText
-           android:id="@+id/timkiemtext"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:textColor="@color/white"
-           android:hint="@string/searchsong"
-           android:inputType="textCapSentences" />
+        <Button
+            android:id="@+id/timkiem"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:textAlignment="center"
+          android:textColor="@color/white"
+          android:backgroundTint="@color/spotify"
+          android:textStyle="bold"
+          android:text="@string/search"/>
+
+        <EditText
+          android:id="@+id/timkiemtext"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/searchsong"
+          android:inputType="textCapSentences"
+          android:padding="10dp"/>
 
       </LinearLayout>
 
