@@ -22,15 +22,13 @@ public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
     switch (position){
       case 0:
         return (new music_player());
-      case 1:
-        return (new lyric_player());
       default:
         return (new music_player());
     }
   }
 
   @Override
-  public int getCount() { return 2; }
+  public int getCount() { return 1; }
 
   @Nullable
   @Override

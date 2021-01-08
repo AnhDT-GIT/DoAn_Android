@@ -37,7 +37,6 @@ public class search extends Fragment {
                 Intent intent = new Intent(getActivity(), DsBaihat.class);
                 intent.putExtra("text",editText.getText().toString());
                 startActivity(intent);
-
             }
         });
         return view;
