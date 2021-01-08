@@ -144,8 +144,15 @@ public class play_music extends AppCompatActivity {
         if (intent != null) {
             if (intent.hasExtra("baihats")) {
                 baihat = (Baihat) intent.getParcelableExtra("baihats");
-                Toast.makeText(play_music.this, baihat.getTenBaihat(),Toast.LENGTH_LONG).show();
                 baihatArrayList.add(baihat);
+            }
+            if (intent.hasExtra("danhsach") ) {
+                ArrayList<Baihat> mangbaihat= intent.getParcelableArrayListExtra("danhsach");
+                for( Baihat item : mangbaihat)
+                {
+                    // tất cả các bài hát được aadd vào bài hát array liostK
+                     baihatArrayList.add(item);
+                }
             }
         }
     }
@@ -157,10 +164,7 @@ public class play_music extends AppCompatActivity {
           public void run() {
               if (adaptermusic.getItem(1) != null){
                 if(baihatArrayList.size() > 0){
-                    //musicplayer.loadImage(baihatArrayList.get(0).getHinhBaihat());
                     musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
-                      //musicplayer.loadImage("https://tranquochung1711061818.000webhostapp.com/hinhanh/baihat/image.png");
-                    System.out.println("LOG IMAGE: " + baihatArrayList.get(0).getHinhBaihat());
                     handler.removeCallbacks(this);
                 }
                 else{

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,27 +44,35 @@ public class DsBaihat extends AppCompatActivity {
   ArrayAdapter<Baihat> arrayAdapter;
   RecyclerView lvListSongs;
   AdapterSong adapterSong;
+  Button playall;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_ds_baihat);
     Getdata();
-
     lvListSongs = findViewById(R.id.lvListSongs);
+    playall= findViewById(R.id.btnPlayAll);
     if(playlist != null )
     {
       GetdataPlaylist(playlist.getIdPlaylist());
     }
       if(album != null )
       {
-          GetdataAlbum(album.getIdAlbum());
+         GetdataAlbum(album.getIdAlbum());
       }
       if(banner != null )
       {
           GetdataBanner(banner.getIdBanner());
       }
-
+     playall.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             Intent intent= new Intent(DsBaihat.this, play_music.class);
+             intent.putParcelableArrayListExtra("danhsach",baihatArrayList);
+             startActivity(intent);
+         }
+     });
   }
 
   private void GetdataPlaylist(String id_playlist) {
@@ -74,7 +83,6 @@ public class DsBaihat extends AppCompatActivity {
       public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
         baihatArrayList=(ArrayList<Baihat>) response.body();
         adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
-        System.out.println(baihatArrayList.get(0).getTenBaihat());
         lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
         lvListSongs.setAdapter(adapterSong);
       }

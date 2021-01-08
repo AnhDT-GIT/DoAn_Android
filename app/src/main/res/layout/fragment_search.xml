@@ -20,7 +20,8 @@
         android:padding="5dp"
         android:orientation="vertical">
 
-        <TextView
+        <Button
+            android:id="@+id/timkiem"
           android:layout_marginTop="30dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -36,11 +37,6 @@
           android:hint="@string/searchsong"
           android:inputType="textCapSentences" />
 
-        <ListView
-          android:id="@+id/lvKetQuaTimKiem"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_margin="5dp" />
       </LinearLayout>
 
   </ScrollView>

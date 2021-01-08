@@ -49,7 +49,6 @@ public class music_player extends Fragment {
         imgMusicPlayer = view.findViewById(R.id.imgMusicPlayer);
         //loadImage();
         Picasso.get().load(imageURL).into(imgMusicPlayer);
-        System.out.println("LOG IMAGE 2: " + imageURL);
         return  view;
     }
 
