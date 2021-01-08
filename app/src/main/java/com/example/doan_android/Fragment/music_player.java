@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,17 +37,20 @@ public class music_player extends Fragment {
 
       View view;
       ImageView imgMusicPlayer;
+      public static String imageURL;
+//      public void loadImage(String urlImage) {
+//        Picasso.get().load(urlImage).into(imgMusicPlayer);
+//      }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music_player, container, false);
         imgMusicPlayer = view.findViewById(R.id.imgMusicPlayer);
+        //loadImage();
+        Picasso.get().load(imageURL).into(imgMusicPlayer);
+        System.out.println("LOG IMAGE 2: " + imageURL);
         return  view;
-    }
-
-    public void Playnhac(String txtimgMusicPlayer) {
-      Picasso.get().load(txtimgMusicPlayer).into(imgMusicPlayer);
     }
 
 }

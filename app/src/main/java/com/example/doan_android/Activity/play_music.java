@@ -11,6 +11,8 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,13 +35,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import retrofit2.http.Tag;
+
 public class play_music extends AppCompatActivity {
 
 
     //Add view
     private TabLayout tabPlayerMusic;
     private ViewPager view_pager_music;
-    public static ArrayList<Baihat> baihatArrayList = new ArrayList<>();
+    //public static ArrayList<Baihat> baihatArrayList = new ArrayList<>();
+    ArrayList<Baihat> baihatArrayList = new ArrayList<>();
     //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     AdapterSong adapterSong;
     //AdapterPlayerMusic adapterPlayerMusic;
@@ -62,7 +67,7 @@ public class play_music extends AppCompatActivity {
         tabPlayerMusic = findViewById(R.id.tabPlayerMusic);
         view_pager_music = findViewById(R.id.view_pager_music);
         txtMusicTenBaiHat = findViewById(R.id.txtMusicTenBaiHat);
-        txtMusicTenNgheSi = findViewById(R.id.txtbtmTenNgheSi);
+        txtMusicTenNgheSi = findViewById(R.id.txtMusicTenNgheSi);
         txtTimeSong = findViewById(R.id.txtTimeSong);
         txtTotalTimeSong = findViewById(R.id.txtTotalTimeSong);
         btnPlay = findViewById(R.id.btnPlay);
@@ -70,14 +75,26 @@ public class play_music extends AppCompatActivity {
         btnPlayPre = findViewById(R.id.btnPlayPre);
         btnPlayNext = findViewById(R.id.btnPlayNext);
         btnPlayLoop = findViewById(R.id.btnPlayLoop);
+        barTime = findViewById(R.id.barTime);
         //ViewPager for display fragments
         //AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         view_pager_music.setAdapter(adaptermusic);
         tabPlayerMusic.setupWithViewPager(view_pager_music);
         musicplayer = (music_player) adaptermusic.getItem(1);
 
+        EventClick();
+        GetData();
+
+        //txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
+        //System.out.print( "LOG: " + baihatArrayList.get(0).getTenBaihat());
+
         if (baihatArrayList.size() > 0){
+            musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
+            txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
+            txtMusicTenNgheSi.setText(baihatArrayList.get(0).getTenCasi());
             new PlayMp3File().execute(baihatArrayList.get(0).getUrlBaihat());
+            System.out.println("LOG URL: " + baihatArrayList.get(0).getUrlBaihat());
+            System.out.println("LOG CA SI: " + baihatArrayList.get(0).getTenCasi());
             btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
         }
 
@@ -85,12 +102,6 @@ public class play_music extends AppCompatActivity {
         tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_list_alt_24);
         tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_music_note_24).select();
         tabPlayerMusic.getTabAt(2).setIcon(R.drawable.ic_baseline_text_fields_24);
-
-        GetDataFromItent();
-
-        EventClick();
-
-        Getdata();
 
     }
 
@@ -109,7 +120,7 @@ public class play_music extends AppCompatActivity {
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
+                    public void onCompletion(MediaPlayer mp) {
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                     }
@@ -130,12 +141,14 @@ public class play_music extends AppCompatActivity {
         barTime.setMax(mediaPlayer.getDuration());
     }
 
-    private void Getdata() {
+    private void GetData() {
         Intent intent = getIntent();
+        baihatArrayList.clear();
         if (intent != null) {
             if (intent.hasExtra("baihats")) {
                 baihat = (Baihat) intent.getParcelableExtra("baihats");
                 Toast.makeText(play_music.this, baihat.getTenBaihat(),Toast.LENGTH_LONG).show();
+                baihatArrayList.add(baihat);
             }
         }
     }
@@ -147,7 +160,10 @@ public class play_music extends AppCompatActivity {
           public void run() {
               if (adaptermusic.getItem(1) != null){
                 if(baihatArrayList.size() > 0){
-                    musicplayer.Playnhac(baihatArrayList.get(0).getHinhBaihat());
+                    //musicplayer.loadImage(baihatArrayList.get(0).getHinhBaihat());
+                    musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
+                      //musicplayer.loadImage("https://tranquochung1711061818.000webhostapp.com/hinhanh/baihat/image.png");
+                    System.out.println("LOG IMAGE: " + baihatArrayList.get(0).getHinhBaihat());
                     handler.removeCallbacks(this);
                 }
                 else{
@@ -171,21 +187,4 @@ public class play_music extends AppCompatActivity {
           }
         });
     }
-
-    private void GetDataFromItent() {
-      Intent intent = getIntent();
-      baihatArrayList.clear();
-      if(intent != null){
-        if(intent.hasExtra("cakhuc")){
-          Baihat baihat = intent.getParcelableExtra("cakhuc");
-          baihatArrayList.add(baihat);
-        }
-        if(intent.hasExtra("cacbaihat")){
-          ArrayList<Baihat> baihatArr = intent.getParcelableExtra("cacbaihat");
-          baihatArrayList = baihatArr;
-        }
-      }
-    }
-
-
 }

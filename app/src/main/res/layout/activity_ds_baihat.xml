@@ -9,6 +9,15 @@
   tools:context=".Activity.DsBaihat"
   android:background="@color/colorPrimaryDark">
 
+    <Button
+      android:id="@+id/btnPlayAll"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:backgroundTint="@color/spotify"
+      android:text="PHÁT TẤT CẢ"
+      android:textStyle="bold"
+      android:textColor="@color/white"/>
+
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
