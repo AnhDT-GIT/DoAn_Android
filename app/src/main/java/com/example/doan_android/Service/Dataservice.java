@@ -34,5 +34,8 @@ public interface Dataservice {
     @FormUrlEncoded
     @POST("baihat.php")
     Call<List<Baihat>>GetDataBanner(@Field("id_banners") String id_banners);
+    @FormUrlEncoded
+    @POST("baihat.php")
+    Call<List<Baihat>>GetTimkiem(@Field("tukhoa") String tukhoa);
 
 }

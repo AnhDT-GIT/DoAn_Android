@@ -19,23 +19,24 @@
         android:layout_margin="5dp"
         android:padding="5dp"
         android:orientation="vertical">
+          <Button
+              android:id="@+id/timkiem"
+              android:layout_marginTop="30dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAlignment="center"
+              android:textColor="@color/white"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              android:text="@string/search"/>
 
-        <Button
-            android:id="@+id/timkiem"
-          android:layout_marginTop="30dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAlignment="center"
-          android:textColor="@color/white"
-          android:textStyle="bold"
-          android:textSize="18sp"
-          android:text="@string/search"/>
-
-        <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/searchsong"
-          android:inputType="textCapSentences" />
+       <EditText
+           android:id="@+id/timkiemtext"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/white"
+           android:hint="@string/searchsong"
+           android:inputType="textCapSentences" />
 
       </LinearLayout>
 

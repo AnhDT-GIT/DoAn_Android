@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.doan_android.Adapter.AdapterAlbum;
 import com.example.doan_android.Adapter.AdapterBanner;
@@ -52,7 +53,6 @@ public class home extends Fragment {
           lvBanner = view.findViewById(R.id.lvBanner);
           lvPlaylist = view.findViewById(R.id.lvPlaylist);
           lvAlbum = view.findViewById(R.id.lvAlbum);
-
           GetData();
 
           return view;

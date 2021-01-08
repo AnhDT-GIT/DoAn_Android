@@ -14,7 +14,6 @@ import com.example.doan_android.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
-
     //Add view
     private TabLayout tabMain;
     private ViewPager view_Pager;

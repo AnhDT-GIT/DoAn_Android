@@ -45,6 +45,7 @@ public class DsBaihat extends AppCompatActivity {
   RecyclerView lvListSongs;
   AdapterSong adapterSong;
   Button playall;
+    String text;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,10 @@ public class DsBaihat extends AppCompatActivity {
       {
           GetdataBanner(banner.getIdBanner());
       }
+      if( text !=null)
+      {
+          GetdataTimkiem(text);
+      }
      playall.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -75,7 +80,26 @@ public class DsBaihat extends AppCompatActivity {
      });
   }
 
-  private void GetdataPlaylist(String id_playlist) {
+    private void GetdataTimkiem(String timkiem) {
+        Dataservice dataservice= APIService.getService();
+        Call<List<Baihat>> callback = dataservice.GetTimkiem(timkiem);
+        callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                baihatArrayList=(ArrayList<Baihat>) response.body();
+                adapterSong = new AdapterSong(DsBaihat.this, baihatArrayList);
+                lvListSongs.setLayoutManager(new LinearLayoutManager(DsBaihat.this));
+                lvListSongs.setAdapter(adapterSong);
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void GetdataPlaylist(String id_playlist) {
     Dataservice dataservice= APIService.getService();
     Call<List<Baihat>> callback = dataservice.GetDataBaihat(id_playlist);
     callback.enqueue(new Callback<List<Baihat>>() {
@@ -146,6 +170,7 @@ public class DsBaihat extends AppCompatActivity {
       {
         banner= (Banner)  intent.getSerializableExtra("banner");
       }
+        text=intent.getStringExtra("text");
     }
   }
 }
