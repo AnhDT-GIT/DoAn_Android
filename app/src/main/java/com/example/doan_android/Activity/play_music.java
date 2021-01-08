@@ -133,6 +133,7 @@ public class play_music extends AppCompatActivity {
             }
             mediaPlayer.start();
             TimeSong();
+            UpdateTime();
         }
     }
 
@@ -140,6 +141,65 @@ public class play_music extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
         txtTotalTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
         barTime.setMax(mediaPlayer.getDuration());
+    }
+
+    private void UpdateTime(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+          @Override
+          public void run() {
+              if (mediaPlayer != null){
+                  barTime.setProgress(mediaPlayer.getCurrentPosition());
+                  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                  txtTimeSong.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
+                  handler.postDelayed(this, 1000);
+                  mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        next = true;
+                    }
+                  });
+              }
+          }
+        },1000);
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+          @Override
+          public void run() {
+            if (next == true){
+              if(position < (baihatArrayList.size())){
+                btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
+                position++;
+                if(position > (baihatArrayList.size() - 1)){
+                  position = 0;
+                }
+                new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
+                musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
+                //NEXT LOG
+                System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
+                txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
+                txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                //musicplayer.setRefreshing
+
+              }
+            btnPlayPre.setClickable(false);
+            btnPlayNext.setClickable(false);
+            Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+              @Override
+              public void run() {
+                btnPlayPre.setClickable(true);
+                btnPlayNext.setClickable(true);
+              }
+            }, 1000);
+            next = false;
+            }
+            else{
+                handler1.postDelayed(this, 1000);
+            }
+
+          }
+        }, 1000);
     }
 
     private void GetData() {
@@ -229,6 +289,8 @@ public class play_music extends AppCompatActivity {
                         System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
                         txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
                         txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                        UpdateTime();
+                        //musicplayer.setRefreshing
                     }
                 }
                 btnPlayPre.setClickable(false);
@@ -240,7 +302,7 @@ public class play_music extends AppCompatActivity {
                     btnPlayPre.setClickable(true);
                     btnPlayNext.setClickable(true);
                   }
-                }, 5000);
+                }, 1000);
           }
         });
 
@@ -266,6 +328,7 @@ public class play_music extends AppCompatActivity {
                 musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
                 txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
                 txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                UpdateTime();
               }
             }
             btnPlayPre.setClickable(false);
@@ -277,7 +340,7 @@ public class play_music extends AppCompatActivity {
                 btnPlayPre.setClickable(true);
                 btnPlayNext.setClickable(true);
               }
-            }, 5000);
+            }, 1000);
 
           }
         });
