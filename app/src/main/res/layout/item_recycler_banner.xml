@@ -13,7 +13,7 @@
       android:layout_gravity="center">
 
       <ImageView
-        android:id="@+id/itemimgBanner"
+        android:id="@+id/imvItemBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
@@ -23,7 +23,7 @@
 
 
     <TextView
-      android:id="@+id/itemtxtNoiDungBanner"
+      android:id="@+id/txtItemBannerContent"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="5dp"

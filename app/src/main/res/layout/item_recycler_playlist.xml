@@ -13,7 +13,7 @@
     android:layout_gravity="center">
 
     <ImageView
-        android:id="@+id/itemimgPlaylist"
+        android:id="@+id/imvItemPlaylist"
         android:layout_width="175dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
@@ -23,7 +23,7 @@
 
 
   <TextView
-    android:id="@+id/itemtxtTenPlaylist"
+    android:id="@+id/txtItemPlaylistName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"

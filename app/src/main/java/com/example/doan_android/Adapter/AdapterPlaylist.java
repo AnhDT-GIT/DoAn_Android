@@ -18,53 +18,53 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHolder>{
+public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHolder> {
 
-  Context context;
-  ArrayList<Playlist> playlistArrayList;
+    Context context;
+    ArrayList<Playlist> listPlaylist;
 
-  public AdapterPlaylist(Context context, ArrayList<Playlist> playlistArrayList) {
-    this.context = context;
-    this.playlistArrayList = playlistArrayList;
-  }
-
-  @NonNull
-  @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-    LayoutInflater inflater = LayoutInflater.from(context);
-    View view = inflater.inflate(R.layout.item_recycler_playlist, parent, false);
-    return new ViewHolder(view);
-  }
-
-  @Override
-  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    Playlist playlist = playlistArrayList.get(position);
-    Picasso.get().load(playlist.getHinhPlaylist()).into(holder.itemimgPlaylist);
-    holder.itemtxtTenPlaylist.setText(playlist.getTenPlaylist());
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(context, ListSongActivity.class);
-        intent.putExtra("playlist", playlistArrayList.get(position));
-        context.startActivity(intent);
-      }
-    });
-  }
-
-  @Override
-  public int getItemCount() {
-    return playlistArrayList.size();
-  }
-
-  public class ViewHolder extends RecyclerView.ViewHolder{
-
-    ImageView itemimgPlaylist;
-    TextView itemtxtTenPlaylist;
-    public ViewHolder(View itemView){
-      super(itemView);
-      itemimgPlaylist = itemView.findViewById(R.id.itemimgPlaylist);
-      itemtxtTenPlaylist = itemView.findViewById(R.id.itemtxtTenPlaylist);
+    public AdapterPlaylist(Context context, ArrayList<Playlist> listPlaylist) {
+        this.context = context;
+        this.listPlaylist = listPlaylist;
     }
-  }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.item_recycler_playlist, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Playlist playlist = listPlaylist.get(position);
+        Picasso.get().load(playlist.getHinhPlaylist()).into(holder.imvItemPlaylist);
+        holder.txtItemPlaylistName.setText(playlist.getTenPlaylist());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ListSongActivity.class);
+                intent.putExtra("playlist", listPlaylist.get(position));
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listPlaylist.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imvItemPlaylist;
+        TextView txtItemPlaylistName;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            imvItemPlaylist = itemView.findViewById(R.id.imvItemPlaylist);
+            txtItemPlaylistName = itemView.findViewById(R.id.txtItemPlaylistName);
+        }
+    }
 }

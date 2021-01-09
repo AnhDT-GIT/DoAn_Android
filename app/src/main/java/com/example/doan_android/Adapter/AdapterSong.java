@@ -21,11 +21,11 @@ import java.util.ArrayList;
 public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
 
   Context context;
-  ArrayList<Song> songArrayList;
+  ArrayList<Song> listSong;
 
-  public AdapterSong(Context context, ArrayList<Song> songArrayList) {
+  public AdapterSong(Context context, ArrayList<Song> listSong) {
     this.context = context;
-    this.songArrayList = songArrayList;
+    this.listSong = listSong;
   }
 
   @NonNull
@@ -40,15 +40,15 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-    Song song = songArrayList.get(position);
-    holder.itemtxtTenCaSi.setText(song.getTenCasi());
-    holder.itemtxtTenBaiHat.setText(song.getTenBaihat());
-    Picasso.get().load(song.getHinhBaihat()).into(holder.itemimgBaiHat);
+    Song song = listSong.get(position);
+    holder.txtItemArtistName.setText(song.getTenCasi());
+    holder.txtItemSongName.setText(song.getTenBaihat());
+    Picasso.get().load(song.getHinhBaihat()).into(holder.imvItemSong);
     holder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent= new Intent(context, PlayMusicActivity.class);
-            intent.putExtra("baihats", songArrayList.get(position));
+            intent.putExtra("baihats", listSong.get(position));
             context.startActivity(intent);
         }
     });
@@ -56,16 +56,16 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   }
 
   @Override
-  public int getItemCount() { return songArrayList.size(); }
+  public int getItemCount() { return listSong.size(); }
 
   public class ViewHolder extends RecyclerView.ViewHolder{
-          TextView itemtxtTenBaiHat, itemtxtTenCaSi;
-          ImageView itemimgBaiHat;
+          TextView txtItemSongName, txtItemArtistName;
+          ImageView imvItemSong;
           public ViewHolder(View itemView){
               super(itemView);
-              itemtxtTenCaSi = itemView.findViewById(R.id.itemtxtTenCaSi);
-              itemtxtTenBaiHat = itemView.findViewById(R.id.itemtxtTenBaiHat);
-              itemimgBaiHat = itemView.findViewById(R.id.itemimgBaihat);
+              txtItemArtistName = itemView.findViewById(R.id.txtItemArtistName);
+              txtItemSongName = itemView.findViewById(R.id.txtItemSongName);
+              imvItemSong = itemView.findViewById(R.id.imvItemSong);
           }
       }
 

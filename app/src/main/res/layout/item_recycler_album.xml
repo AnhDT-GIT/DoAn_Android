@@ -13,7 +13,7 @@
     android:layout_gravity="center">
 
     <ImageView
-      android:id="@+id/itemimgAlbum"
+      android:id="@+id/imvItemAlbum"
       android:layout_width="175dp"
       android:layout_height="150dp"
       android:scaleType="centerCrop"
@@ -23,7 +23,7 @@
 
 
   <TextView
-    android:id="@+id/itemtxtTenAlbum"
+    android:id="@+id/txtItemAlbumName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
