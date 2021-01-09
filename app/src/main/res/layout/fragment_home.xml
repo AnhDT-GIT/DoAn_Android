@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/lvBanner"
+          android:id="@+id/rcvBanner"
           android:layout_marginTop="10dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/lvAlbum"
+          android:id="@+id/rcvAlbum"
           android:layout_marginTop="10dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/lvPlaylist"
+          android:id="@+id/rcvPlaylist"
           android:layout_marginTop="10dp"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

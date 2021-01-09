@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/timkiem"
+            android:id="@+id/btnSearch"
           android:layout_width="match_parent"
           android:layout_height="50dp"
           android:textAlignment="center"
@@ -29,7 +29,7 @@
           android:text="@string/search"/>
 
         <EditText
-          android:id="@+id/timkiemtext"
+          android:id="@+id/edtSearch"
             android:textColor="@color/white"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

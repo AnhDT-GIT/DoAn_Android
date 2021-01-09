@@ -16,9 +16,10 @@ import com.example.doan_android.R;
 
 
 public class SearchFragment extends Fragment {
+
     View view;
+
     public SearchFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -26,13 +27,13 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_search, container, false);
-        Button button = view.findViewById(R.id.timkiem);
-        EditText editText=view.findViewById(R.id.timkiemtext);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button btnSearch = view.findViewById(R.id.btnSearch);
+        EditText edtSearch = view.findViewById(R.id.edtSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ListSongActivity.class);
-                intent.putExtra("text",editText.getText().toString());
+                intent.putExtra("text", edtSearch.getText().toString());
                 startActivity(intent);
             }
         });

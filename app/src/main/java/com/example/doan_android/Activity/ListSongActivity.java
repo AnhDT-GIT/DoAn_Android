@@ -16,7 +16,7 @@ import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
 import com.example.doan_android.R;
 import com.example.doan_android.Service.APIService;
-import com.example.doan_android.Service.Dataservice;
+import com.example.doan_android.Service.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataSearch(String search) {
-        Dataservice dataservice = APIService.getService();
+        DataService dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetTimkiem(search);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
@@ -88,7 +88,7 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataPlaylist(String playlistId) {
-        Dataservice dataservice = APIService.getService();
+        DataService dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetDataBaihat(playlistId);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
@@ -107,7 +107,7 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataAlbum(String albumId) {
-        Dataservice dataservice = APIService.getService();
+        DataService dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetDataAlbum(albumId);
         callback.enqueue(new Callback<List<Song>>() {
             @Override
@@ -126,7 +126,7 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataBanner(String bannerId) {
-        Dataservice dataservice = APIService.getService();
+        DataService dataservice = APIService.getService();
         Call<List<Song>> callback = dataservice.GetDataBanner(bannerId);
         callback.enqueue(new Callback<List<Song>>() {
             @Override

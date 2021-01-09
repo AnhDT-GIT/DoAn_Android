@@ -15,16 +15,15 @@ import com.squareup.picasso.Picasso;
 
 public class MusicPlayerFragment extends Fragment {
 
-      public MusicPlayerFragment(){
-        // Required empty public constructor
-      }
+    public MusicPlayerFragment() {
+    }
 
-      View view;
-      ImageView imgMusicPlayer;
-      public static String imageURL;
-//      public void loadImage(String urlImage) {
-//        Picasso.get().load(urlImage).into(imgMusicPlayer);
-//      }
+    View view;
+    ImageView imgMusicPlayer;
+    public static String imageURL;
+    /*public void loadImage(String urlImage) {
+        Picasso.get().load(urlImage).into(imgMusicPlayer);
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class MusicPlayerFragment extends Fragment {
         imgMusicPlayer = view.findViewById(R.id.imgMusicPlayer);
         //loadImage();
         Picasso.get().load(imageURL).into(imgMusicPlayer);
-        return  view;
+        return view;
     }
 
 }

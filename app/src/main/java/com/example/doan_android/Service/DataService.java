@@ -13,7 +13,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface Dataservice {
+public interface DataService {
     @GET("banner.php")
     Call<List<Banner>> GetDataBanner();
 
