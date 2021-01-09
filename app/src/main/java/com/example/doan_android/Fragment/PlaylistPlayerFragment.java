@@ -12,10 +12,10 @@ import com.example.doan_android.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link playlist_player#newInstance} factory method to
+ * Use the {@link PlaylistPlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class playlist_player extends Fragment {
+public class PlaylistPlayerFragment extends Fragment {
 
   // TODO: Rename parameter arguments, choose names that match
   // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class playlist_player extends Fragment {
   private String mParam1;
   private String mParam2;
 
-  public playlist_player() {
+  public PlaylistPlayerFragment() {
     // Required empty public constructor
   }
 
@@ -39,8 +39,8 @@ public class playlist_player extends Fragment {
    * @return A new instance of fragment playlist_player.
    */
   // TODO: Rename and change types and number of parameters
-  public static playlist_player newInstance(String param1, String param2) {
-    playlist_player fragment = new playlist_player();
+  public static PlaylistPlayerFragment newInstance(String param1, String param2) {
+    PlaylistPlayerFragment fragment = new PlaylistPlayerFragment();
     Bundle args = new Bundle();
     args.putString(ARG_PARAM1, param1);
     args.putString(ARG_PARAM2, param2);

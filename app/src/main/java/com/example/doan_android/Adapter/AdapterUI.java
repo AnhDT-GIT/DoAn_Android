@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.doan_android.Fragment.home;
-import com.example.doan_android.Fragment.search;
+import com.example.doan_android.Fragment.HomeFragment;
+import com.example.doan_android.Fragment.SearchFragment;
 
 public class AdapterUI extends FragmentStatePagerAdapter{
 
@@ -20,11 +20,11 @@ public class AdapterUI extends FragmentStatePagerAdapter{
   public Fragment getItem(int position) {
     switch (position){
       case 0:
-        return new home();
+        return new HomeFragment();
       case 1:
-        return new search();
+        return new SearchFragment();
       default:
-        return new home();
+        return new HomeFragment();
     }
   }
 

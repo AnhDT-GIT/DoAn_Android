@@ -118,7 +118,7 @@
       android:orientation="vertical">
 
       <TextView
-        android:id="@+id/txtMusicTenBaiHat"
+        android:id="@+id/txtSongName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -127,7 +127,7 @@
         android:textSize="20sp" />
 
       <TextView
-        android:id="@+id/txtMusicTenNgheSi"
+        android:id="@+id/txtArtistName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.5"
@@ -147,7 +147,7 @@
       android:orientation="horizontal">
 
       <ImageButton
-        android:id="@+id/btnPlayPre"
+        android:id="@+id/imvPlayPre"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_baseline_skip_previous_24"
@@ -155,13 +155,13 @@
         android:layout_marginRight="20dp"/>
 
       <ImageView
-        android:id="@+id/btnPlay"
+        android:id="@+id/imvPlay"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_baseline_play_arrow_24" />
 
       <ImageButton
-        android:id="@+id/btnPlayNext"
+        android:id="@+id/imvPlayNext"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_baseline_skip_next_24"

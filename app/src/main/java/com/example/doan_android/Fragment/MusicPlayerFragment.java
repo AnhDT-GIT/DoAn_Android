@@ -13,9 +13,9 @@ import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
 
 
-public class music_player extends Fragment {
+public class MusicPlayerFragment extends Fragment {
 
-      public music_player(){
+      public MusicPlayerFragment(){
         // Required empty public constructor
       }
 

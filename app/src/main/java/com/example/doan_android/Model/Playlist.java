@@ -21,35 +21,35 @@ public class Playlist implements Serializable {
     private String iconPlaylist;
 
     public String getIdPlaylist() {
-      return idPlaylist;
+        return idPlaylist;
     }
 
     public void setIdPlaylist(String idPlaylist) {
-      this.idPlaylist = idPlaylist;
+        this.idPlaylist = idPlaylist;
     }
 
     public String getTenPlaylist() {
-      return tenPlaylist;
+        return tenPlaylist;
     }
 
     public void setTenPlaylist(String tenPlaylist) {
-      this.tenPlaylist = tenPlaylist;
+        this.tenPlaylist = tenPlaylist;
     }
 
     public String getHinhPlaylist() {
-      return hinhPlaylist;
+        return hinhPlaylist;
     }
 
     public void setHinhPlaylist(String hinhPlaylist) {
-      this.hinhPlaylist = hinhPlaylist;
+        this.hinhPlaylist = hinhPlaylist;
     }
 
     public String getIconPlaylist() {
-      return iconPlaylist;
+        return iconPlaylist;
     }
 
     public void setIconPlaylist(String iconPlaylist) {
-      this.iconPlaylist = iconPlaylist;
+        this.iconPlaylist = iconPlaylist;
     }
 
 }

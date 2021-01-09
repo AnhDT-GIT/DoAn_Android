@@ -26,14 +26,17 @@ public interface Dataservice {
     @FormUrlEncoded
     @POST("baihat.php")
     Call<List<Song>> GetDataBaihat(@Field("id_playlists") String id_playlists);
+
     @FormUrlEncoded
     @POST("baihat.php")
     Call<List<Song>> GetDataAlbum(@Field("id_albums") String id_albums);
+
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Song>>GetDataBanner(@Field("id_banners") String id_banners);
+    Call<List<Song>> GetDataBanner(@Field("id_banners") String id_banners);
+
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Song>>GetTimkiem(@Field("tukhoa") String tukhoa);
+    Call<List<Song>> GetTimkiem(@Field("tukhoa") String tukhoa);
 
 }

@@ -8,21 +8,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class Song implements Parcelable {
 
-@SerializedName("id_baihat")
-@Expose
-private String idBaihat;
-@SerializedName("ten_baihat")
-@Expose
-private String tenBaihat;
-@SerializedName("hinh_baihat")
-@Expose
-private String hinhBaihat;
-@SerializedName("url_baihat")
-@Expose
-private String urlBaihat;
-@SerializedName("ten_casi")
-@Expose
-private String tenCasi;
+    @SerializedName("id_baihat")
+    @Expose
+    private String idBaihat;
+    @SerializedName("ten_baihat")
+    @Expose
+    private String tenBaihat;
+    @SerializedName("hinh_baihat")
+    @Expose
+    private String hinhBaihat;
+    @SerializedName("url_baihat")
+    @Expose
+    private String urlBaihat;
+    @SerializedName("ten_casi")
+    @Expose
+    private String tenCasi;
 
     protected Song(Parcel in) {
         idBaihat = in.readString();
@@ -45,44 +45,44 @@ private String tenCasi;
     };
 
     public String getIdBaihat() {
-return idBaihat;
-}
+        return idBaihat;
+    }
 
-public void setIdBaihat(String idBaihat) {
-this.idBaihat = idBaihat;
-}
+    public void setIdBaihat(String idBaihat) {
+        this.idBaihat = idBaihat;
+    }
 
-public String getTenBaihat() {
-return tenBaihat;
-}
+    public String getTenBaihat() {
+        return tenBaihat;
+    }
 
-public void setTenBaihat(String tenBaihat) {
-this.tenBaihat = tenBaihat;
-}
+    public void setTenBaihat(String tenBaihat) {
+        this.tenBaihat = tenBaihat;
+    }
 
-public String getHinhBaihat() {
-return hinhBaihat;
-}
+    public String getHinhBaihat() {
+        return hinhBaihat;
+    }
 
-public void setHinhBaihat(String hinhBaihat) {
-this.hinhBaihat = hinhBaihat;
-}
+    public void setHinhBaihat(String hinhBaihat) {
+        this.hinhBaihat = hinhBaihat;
+    }
 
-public String getUrlBaihat() {
-return urlBaihat;
-}
+    public String getUrlBaihat() {
+        return urlBaihat;
+    }
 
-public void setUrlBaihat(String urlBaihat) {
-this.urlBaihat = urlBaihat;
-}
+    public void setUrlBaihat(String urlBaihat) {
+        this.urlBaihat = urlBaihat;
+    }
 
-public String getTenCasi() {
-return tenCasi;
-}
+    public String getTenCasi() {
+        return tenCasi;
+    }
 
-public void setTenCasi(String tenCasi) {
-this.tenCasi = tenCasi;
-}
+    public void setTenCasi(String tenCasi) {
+        this.tenCasi = tenCasi;
+    }
 
     @Override
     public String toString() {

@@ -29,9 +29,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class home extends Fragment {
+public class HomeFragment extends Fragment {
 
-    public home() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 

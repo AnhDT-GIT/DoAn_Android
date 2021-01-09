@@ -15,9 +15,9 @@ import com.example.doan_android.Activity.ListSongActivity;
 import com.example.doan_android.R;
 
 
-public class search extends Fragment {
+public class SearchFragment extends Fragment {
     View view;
-    public search() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 

@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.doan_android.Fragment.lyric_player;
-import com.example.doan_android.Fragment.music_player;
-import com.example.doan_android.Fragment.playlist_player;
+import com.example.doan_android.Fragment.MusicPlayerFragment;
 
 public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
 
@@ -21,9 +19,9 @@ public class AdapterPlayerMusic extends FragmentStatePagerAdapter {
   public Fragment getItem(int position) {
     switch (position){
       case 0:
-        return (new music_player());
+        return (new MusicPlayerFragment());
       default:
-        return (new music_player());
+        return (new MusicPlayerFragment());
     }
   }
 

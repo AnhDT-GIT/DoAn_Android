@@ -12,10 +12,10 @@ import com.example.doan_android.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link lyric_player#newInstance} factory method to
+ * Use the {@link LyricPlayerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class lyric_player extends Fragment {
+public class LyricPlayerFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class lyric_player extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public lyric_player() {
+    public LyricPlayerFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class lyric_player extends Fragment {
      * @return A new instance of fragment listsong_player.
      */
     // TODO: Rename and change types and number of parameters
-    public static lyric_player newInstance(String param1, String param2) {
-        lyric_player fragment = new lyric_player();
+    public static LyricPlayerFragment newInstance(String param1, String param2) {
+        LyricPlayerFragment fragment = new LyricPlayerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
