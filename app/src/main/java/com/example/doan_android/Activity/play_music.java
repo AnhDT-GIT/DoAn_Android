@@ -59,8 +59,6 @@ public class play_music extends AppCompatActivity {
     SeekBar barTime;
     ImageView btnPlayPre, btnPlay, btnPlayNext, imgMusicPlayer;
     Button btnBack;
-
-    MediaPlayer mediaPlayer;
     music_player musicplayer;
 
     boolean next = false;
@@ -75,18 +73,21 @@ public class play_music extends AppCompatActivity {
         LinkViews();
         EventClick();
         GetData();
+        if(MainActivity.mediaPlayer.isPlaying() && MainActivity.mediaPlayer!=null)
+        {
+            MainActivity.mediaPlayer.stop();
+            MainActivity.mediaPlayer.release();
+            MainActivity.mediaPlayer=null;
+        }
 
         //txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
         //System.out.print( "LOG: " + baihatArrayList.get(0).getTenBaihat());
-
         if (baihatArrayList.size() > 0){
             //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
             Picasso.get().load(baihatArrayList.get(0).getHinhBaihat()).into(imgMusicPlayer);
             txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
             txtMusicTenNgheSi.setText(baihatArrayList.get(0).getTenCasi());
             new PlayMp3File().execute(baihatArrayList.get(0).getUrlBaihat());
-            System.out.println("LOG URL: " + baihatArrayList.get(0).getUrlBaihat());
-            System.out.println("LOG CA SI: " + baihatArrayList.get(0).getTenCasi());
             btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
         }
 
@@ -136,21 +137,29 @@ public class play_music extends AppCompatActivity {
           protected void onPostExecute(String baihat) {
               super.onPostExecute(baihat);
               try {
-                  mediaPlayer = new MediaPlayer();
-                  mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                  mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                  MainActivity.mediaPlayer = new MediaPlayer();
+                  MainActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                  MainActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                       @Override
                       public void onCompletion(MediaPlayer mp) {
-                          mediaPlayer.stop();
-                          mediaPlayer.reset();
+                          MainActivity.mediaPlayer.stop();
+                          MainActivity.mediaPlayer.reset();
                       }
                   });
-                  mediaPlayer.setDataSource(baihat);
-                  mediaPlayer.prepare();
+                  MainActivity.mediaPlayer.setDataSource(baihat);
+                  MainActivity.mediaPlayer.prepare();
               } catch (IOException e) {
                   e.printStackTrace();
               }
-              mediaPlayer.start();
+//              if(mediaPlayer.isPlaying()){
+//                  mediaPlayer.stop();
+//                  System.out.println("co du lieu");
+//              }
+//              else
+//              {
+//                  System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
+//              }
+              MainActivity.mediaPlayer.start();
               TimeSong();
               UpdateTime();
           }
@@ -158,8 +167,8 @@ public class play_music extends AppCompatActivity {
 
       private void TimeSong() {
           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-          txtTotalTimeSong.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
-          barTime.setMax(mediaPlayer.getDuration());
+          txtTotalTimeSong.setText(simpleDateFormat.format(MainActivity.mediaPlayer.getDuration()));
+          barTime.setMax(MainActivity.mediaPlayer.getDuration());
       }
 
       private void UpdateTime(){
@@ -167,12 +176,12 @@ public class play_music extends AppCompatActivity {
           handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mediaPlayer != null){
-                    barTime.setProgress(mediaPlayer.getCurrentPosition());
+                if (MainActivity.mediaPlayer != null){
+                    barTime.setProgress(MainActivity.mediaPlayer.getCurrentPosition());
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-                    txtTimeSong.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
+                    txtTimeSong.setText(simpleDateFormat.format(MainActivity.mediaPlayer.getCurrentPosition()));
                     handler.postDelayed(this, 1000);
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    MainActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                       @Override
                       public void onCompletion(MediaPlayer mp) {
                           next = true;
@@ -261,13 +270,13 @@ public class play_music extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              if(mediaPlayer.isPlaying()){
-                mediaPlayer.pause();
+              if(MainActivity.mediaPlayer.isPlaying()){
+                  MainActivity.mediaPlayer.pause();
                 btnPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);
               }
               else
               {
-                mediaPlayer.start();
+                  MainActivity.mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
               }
           }
@@ -285,7 +294,7 @@ public class play_music extends AppCompatActivity {
 
           @Override
           public void onStopTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.seekTo(seekBar.getProgress());
+              MainActivity.mediaPlayer.seekTo(seekBar.getProgress());
           }
         });
 
@@ -293,10 +302,10 @@ public class play_music extends AppCompatActivity {
           @Override
           public void onClick(View view) {
                 if(baihatArrayList.size() > 0){
-                    if(mediaPlayer.isPlaying() || mediaPlayer != null){
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
+                    if(MainActivity.mediaPlayer.isPlaying() || MainActivity.mediaPlayer != null){
+                        MainActivity.mediaPlayer.stop();
+                        MainActivity.mediaPlayer.release();
+                        MainActivity.mediaPlayer = null;
                     }
                     if(position < (baihatArrayList.size())){
                         btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
@@ -333,10 +342,10 @@ public class play_music extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             if(baihatArrayList.size() > 0){
-              if(mediaPlayer.isPlaying() || mediaPlayer != null){
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = null;
+              if(MainActivity.mediaPlayer.isPlaying() || MainActivity.mediaPlayer != null){
+                  MainActivity.mediaPlayer.stop();
+                  MainActivity.mediaPlayer.release();
+                  MainActivity.mediaPlayer = null;
               }
               if(position < (baihatArrayList.size())){
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);

@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     //Add view
     private TabLayout tabMain;
     private ViewPager view_Pager;
+    public static MediaPlayer mediaPlayer= new MediaPlayer();
     //private LinearLayout layoutThongTin;
 
     @Override
