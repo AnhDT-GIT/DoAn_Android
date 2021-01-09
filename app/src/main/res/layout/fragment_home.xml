@@ -44,7 +44,7 @@
           android:textStyle="bold"
           android:textSize="18sp"
           android:padding="5dp"
-          android:text="@string/album"/>
+          android:text="ALBUMS"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

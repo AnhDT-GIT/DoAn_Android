@@ -159,9 +159,9 @@ public class play_music extends AppCompatActivity {
 //              {
 //                  System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
 //              }
-              MainActivity.mediaPlayer.start();
-              TimeSong();
-              UpdateTime();
+                MainActivity.mediaPlayer.start();
+                TimeSong();
+                UpdateTime();
           }
       }
 
