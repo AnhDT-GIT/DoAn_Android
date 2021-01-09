@@ -11,12 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doan_android.Activity.DsBaihat;
+import com.example.doan_android.Activity.ListSongActivity;
 import com.example.doan_android.Model.Album;
-import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -48,7 +45,7 @@ public class AdapterAlbum extends RecyclerView.Adapter<AdapterAlbum.ViewHolder>{
       holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(context, DsBaihat.class);
+                Intent intent= new Intent(context, ListSongActivity.class);
                 intent.putExtra("album",albumArrayList.get(position));
                 context.startActivity(intent);
             }

@@ -2,12 +2,11 @@ package com.example.doan_android.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.ParcelableSpan;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Baihat implements Parcelable {
+public class Song implements Parcelable {
 
 @SerializedName("id_baihat")
 @Expose
@@ -25,7 +24,7 @@ private String urlBaihat;
 @Expose
 private String tenCasi;
 
-    protected Baihat(Parcel in) {
+    protected Song(Parcel in) {
         idBaihat = in.readString();
         tenBaihat = in.readString();
         hinhBaihat = in.readString();
@@ -33,15 +32,15 @@ private String tenCasi;
         tenCasi = in.readString();
     }
 
-    public static final Creator<Baihat> CREATOR = new Creator<Baihat>() {
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
         @Override
-        public Baihat createFromParcel(Parcel in) {
-            return new Baihat(in);
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
         }
 
         @Override
-        public Baihat[] newArray(int size) {
-            return new Baihat[size];
+        public Song[] newArray(int size) {
+            return new Song[size];
         }
     };
 

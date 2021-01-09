@@ -2,8 +2,6 @@ package com.example.doan_android.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.media.AudioManager;
@@ -11,51 +9,40 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.doan_android.Adapter.AdapterPlayerMusic;
-import com.example.doan_android.Adapter.AdapterSong;
 import com.example.doan_android.Fragment.music_player;
-import com.example.doan_android.Model.Album;
-import com.example.doan_android.Model.Baihat;
-import com.example.doan_android.Model.Banner;
-import com.example.doan_android.Model.Playlist;
+import com.example.doan_android.Model.Song;
 import com.example.doan_android.R;
-import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import retrofit2.http.Tag;
-
-public class play_music extends AppCompatActivity {
+public class PlayMusicActivity extends AppCompatActivity {
 
 
     //Add view
-    private TabLayout tabPlayerMusic;
-    private ViewPager view_pager_music;
+    //private TabLayout tabPlayerMusic;
+    //private ViewPager view_pager_music;
+    //private AdapterSong adapterSong;
     //public static ArrayList<Baihat> baihatArrayList = new ArrayList<>();
-    ArrayList<Baihat> baihatArrayList = new ArrayList<>();
     //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    AdapterSong adapterSong;
     //AdapterPlayerMusic adapterPlayerMusic;
-    AdapterPlayerMusic adaptermusic = new AdapterPlayerMusic(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-    Baihat baihat;
+    ArrayList<Song> listSong = new ArrayList<>();
+    AdapterPlayerMusic adapterPlayerMusic = new AdapterPlayerMusic(getSupportFragmentManager(),
+            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-    TextView txtMusicTenBaiHat, txtMusicTenNgheSi, txtTimeSong, txtTotalTimeSong;
+    Song song;
+
+    TextView txtSongName, txtArtistName, txtTimeSong, txtTotalTimeSong;
     SeekBar barTime;
     ImageView btnPlayPre, btnPlay, btnPlayNext, imgMusicPlayer;
     Button btnBack;
@@ -73,21 +60,21 @@ public class play_music extends AppCompatActivity {
         LinkViews();
         EventClick();
         GetData();
-        if(MainActivity.mediaPlayer.isPlaying() && MainActivity.mediaPlayer!=null)
+        if(HomeActivity.mediaPlayer.isPlaying() && HomeActivity.mediaPlayer!=null)
         {
-            MainActivity.mediaPlayer.stop();
-            MainActivity.mediaPlayer.release();
-            MainActivity.mediaPlayer=null;
+            HomeActivity.mediaPlayer.stop();
+            HomeActivity.mediaPlayer.release();
+            HomeActivity.mediaPlayer=null;
         }
 
         //txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
         //System.out.print( "LOG: " + baihatArrayList.get(0).getTenBaihat());
-        if (baihatArrayList.size() > 0){
+        if (listSong.size() > 0){
             //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
-            Picasso.get().load(baihatArrayList.get(0).getHinhBaihat()).into(imgMusicPlayer);
-            txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
-            txtMusicTenNgheSi.setText(baihatArrayList.get(0).getTenCasi());
-            new PlayMp3File().execute(baihatArrayList.get(0).getUrlBaihat());
+            Picasso.get().load(listSong.get(0).getHinhBaihat()).into(imgMusicPlayer);
+            txtSongName.setText(listSong.get(0).getTenBaihat());
+            txtArtistName.setText(listSong.get(0).getTenCasi());
+            new PlayMp3File().execute(listSong.get(0).getUrlBaihat());
             btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
         }
 
@@ -95,7 +82,7 @@ public class play_music extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              Intent intent = new Intent(play_music.this, MainActivity.class);
+              Intent intent = new Intent(PlayMusicActivity.this, HomeActivity.class);
               startActivity(intent);
           }
         });
@@ -108,8 +95,8 @@ public class play_music extends AppCompatActivity {
         //tabPlayerMusic = findViewById(R.id.tabPlayerMusic);
         //view_pager_music = findViewById(R.id.view_pager_music);
         btnBack = findViewById(R.id.btnBack);
-        txtMusicTenBaiHat = findViewById(R.id.txtMusicTenBaiHat);
-        txtMusicTenNgheSi = findViewById(R.id.txtMusicTenNgheSi);
+        txtSongName = findViewById(R.id.txtMusicTenBaiHat);
+        txtArtistName = findViewById(R.id.txtMusicTenNgheSi);
         txtTimeSong = findViewById(R.id.txtTimeSong);
         txtTotalTimeSong = findViewById(R.id.txtTotalTimeSong);
         btnPlay = findViewById(R.id.btnPlay);
@@ -119,7 +106,7 @@ public class play_music extends AppCompatActivity {
         imgMusicPlayer = findViewById(R.id.imgMusicPlayer);
         //view_pager_music.setAdapter(adaptermusic);
         //tabPlayerMusic.setupWithViewPager(view_pager_music);
-        musicplayer = (music_player) adaptermusic.getItem(0);
+        musicplayer = (music_player) adapterPlayerMusic.getItem(0);
 
         //Set icon
         //tabPlayerMusic.getTabAt(0).setIcon(R.drawable.ic_baseline_music_note_24).select();
@@ -137,17 +124,17 @@ public class play_music extends AppCompatActivity {
           protected void onPostExecute(String baihat) {
               super.onPostExecute(baihat);
               try {
-                  MainActivity.mediaPlayer = new MediaPlayer();
-                  MainActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                  MainActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                  HomeActivity.mediaPlayer = new MediaPlayer();
+                  HomeActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                  HomeActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                       @Override
                       public void onCompletion(MediaPlayer mp) {
-                          MainActivity.mediaPlayer.stop();
-                          MainActivity.mediaPlayer.reset();
+                          HomeActivity.mediaPlayer.stop();
+                          HomeActivity.mediaPlayer.reset();
                       }
                   });
-                  MainActivity.mediaPlayer.setDataSource(baihat);
-                  MainActivity.mediaPlayer.prepare();
+                  HomeActivity.mediaPlayer.setDataSource(baihat);
+                  HomeActivity.mediaPlayer.prepare();
               } catch (IOException e) {
                   e.printStackTrace();
               }
@@ -159,7 +146,7 @@ public class play_music extends AppCompatActivity {
 //              {
 //                  System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
 //              }
-                MainActivity.mediaPlayer.start();
+                HomeActivity.mediaPlayer.start();
                 TimeSong();
                 UpdateTime();
           }
@@ -167,8 +154,8 @@ public class play_music extends AppCompatActivity {
 
       private void TimeSong() {
           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-          txtTotalTimeSong.setText(simpleDateFormat.format(MainActivity.mediaPlayer.getDuration()));
-          barTime.setMax(MainActivity.mediaPlayer.getDuration());
+          txtTotalTimeSong.setText(simpleDateFormat.format(HomeActivity.mediaPlayer.getDuration()));
+          barTime.setMax(HomeActivity.mediaPlayer.getDuration());
       }
 
       private void UpdateTime(){
@@ -176,12 +163,12 @@ public class play_music extends AppCompatActivity {
           handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (MainActivity.mediaPlayer != null){
-                    barTime.setProgress(MainActivity.mediaPlayer.getCurrentPosition());
+                if (HomeActivity.mediaPlayer != null){
+                    barTime.setProgress(HomeActivity.mediaPlayer.getCurrentPosition());
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-                    txtTimeSong.setText(simpleDateFormat.format(MainActivity.mediaPlayer.getCurrentPosition()));
+                    txtTimeSong.setText(simpleDateFormat.format(HomeActivity.mediaPlayer.getCurrentPosition()));
                     handler.postDelayed(this, 1000);
-                    MainActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    HomeActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                       @Override
                       public void onCompletion(MediaPlayer mp) {
                           next = true;
@@ -195,19 +182,19 @@ public class play_music extends AppCompatActivity {
             @Override
             public void run() {
               if (next == true){
-                if(position < (baihatArrayList.size())){
+                if(position < (listSong.size())){
                   btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
                   position++;
-                  if(position > (baihatArrayList.size() - 1)){
+                  if(position > (listSong.size() - 1)){
                     position = 0;
                   }
-                  new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
+                  new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
                   //musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
                   //NEXT LOG
-                  Picasso.get().load(baihatArrayList.get(position).getHinhBaihat()).into(imgMusicPlayer);
-                  System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
-                  txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
-                  txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                  Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imgMusicPlayer);
+                  System.out.println("NEXT LOG: " + listSong.get(position).getHinhBaihat());
+                  txtSongName.setText(listSong.get(position).getTenBaihat());
+                  txtArtistName.setText(listSong.get(position).getTenCasi());
                   //musicplayer.setRefreshing
 
                 }
@@ -233,18 +220,18 @@ public class play_music extends AppCompatActivity {
 
     private void GetData() {
         Intent intent = getIntent();
-        baihatArrayList.clear();
+        listSong.clear();
         if (intent != null) {
             if (intent.hasExtra("baihats")) {
-                baihat = (Baihat) intent.getParcelableExtra("baihats");
-                baihatArrayList.add(baihat);
+                song = (Song) intent.getParcelableExtra("baihats");
+                listSong.add(song);
             }
             if (intent.hasExtra("danhsach") ) {
-                ArrayList<Baihat> mangbaihat= intent.getParcelableArrayListExtra("danhsach");
-                for( Baihat item : mangbaihat)
+                ArrayList<Song> mangbaihat= intent.getParcelableArrayListExtra("danhsach");
+                for( Song item : mangbaihat)
                 {
                     // tất cả các bài hát được aadd vào bài hát array liostK
-                     baihatArrayList.add(item);
+                     listSong.add(item);
                 }
             }
         }
@@ -255,10 +242,10 @@ public class play_music extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
           @Override
           public void run() {
-              if (adaptermusic.getItem(1) != null){
-                if(baihatArrayList.size() > 0){
+              if (adapterPlayerMusic.getItem(1) != null){
+                if(listSong.size() > 0){
                     //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
-                    Picasso.get().load(baihatArrayList.get(position).getHinhBaihat()).into(imgMusicPlayer);
+                    Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imgMusicPlayer);
                     handler.removeCallbacks(this);
                 }
                 else{
@@ -270,13 +257,13 @@ public class play_music extends AppCompatActivity {
         btnPlay.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              if(MainActivity.mediaPlayer.isPlaying()){
-                  MainActivity.mediaPlayer.pause();
+              if(HomeActivity.mediaPlayer.isPlaying()){
+                  HomeActivity.mediaPlayer.pause();
                 btnPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);
               }
               else
               {
-                  MainActivity.mediaPlayer.start();
+                  HomeActivity.mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
               }
           }
@@ -294,32 +281,32 @@ public class play_music extends AppCompatActivity {
 
           @Override
           public void onStopTrackingTouch(SeekBar seekBar) {
-              MainActivity.mediaPlayer.seekTo(seekBar.getProgress());
+              HomeActivity.mediaPlayer.seekTo(seekBar.getProgress());
           }
         });
 
         btnPlayNext.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-                if(baihatArrayList.size() > 0){
-                    if(MainActivity.mediaPlayer.isPlaying() || MainActivity.mediaPlayer != null){
-                        MainActivity.mediaPlayer.stop();
-                        MainActivity.mediaPlayer.release();
-                        MainActivity.mediaPlayer = null;
+                if(listSong.size() > 0){
+                    if(HomeActivity.mediaPlayer.isPlaying() || HomeActivity.mediaPlayer != null){
+                        HomeActivity.mediaPlayer.stop();
+                        HomeActivity.mediaPlayer.release();
+                        HomeActivity.mediaPlayer = null;
                     }
-                    if(position < (baihatArrayList.size())){
+                    if(position < (listSong.size())){
                         btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
                         position++;
-                        if(position > (baihatArrayList.size() - 1)){
+                        if(position > (listSong.size() - 1)){
                           position = 0;
                         }
-                        new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
-                        musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
+                        new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
+                        musicplayer.imageURL = (listSong.get(position).getHinhBaihat());
                         //NEXT LOG
                         //System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
-                        Picasso.get().load(baihatArrayList.get(position).getHinhBaihat()).into(imgMusicPlayer);
-                        txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
-                        txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                        Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imgMusicPlayer);
+                        txtSongName.setText(listSong.get(position).getTenBaihat());
+                        txtArtistName.setText(listSong.get(position).getTenCasi());
                         UpdateTime();
                         //musicplayer.setRefreshing
                     }
@@ -341,25 +328,25 @@ public class play_music extends AppCompatActivity {
         btnPlayPre.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-            if(baihatArrayList.size() > 0){
-              if(MainActivity.mediaPlayer.isPlaying() || MainActivity.mediaPlayer != null){
-                  MainActivity.mediaPlayer.stop();
-                  MainActivity.mediaPlayer.release();
-                  MainActivity.mediaPlayer = null;
+            if(listSong.size() > 0){
+              if(HomeActivity.mediaPlayer.isPlaying() || HomeActivity.mediaPlayer != null){
+                  HomeActivity.mediaPlayer.stop();
+                  HomeActivity.mediaPlayer.release();
+                  HomeActivity.mediaPlayer = null;
               }
-              if(position < (baihatArrayList.size())){
+              if(position < (listSong.size())){
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_24);
                 position--;
 
                 if(position < 0){
-                  position = baihatArrayList.size() - 1;
+                  position = listSong.size() - 1;
                 }
 
-                new PlayMp3File().execute(baihatArrayList.get(position).getUrlBaihat());
+                new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
                 //musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
-                Picasso.get().load(baihatArrayList.get(position).getHinhBaihat()).into(imgMusicPlayer);
-                txtMusicTenBaiHat.setText(baihatArrayList.get(position).getTenBaihat());
-                txtMusicTenNgheSi.setText(baihatArrayList.get(position).getTenCasi());
+                Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imgMusicPlayer);
+                txtSongName.setText(listSong.get(position).getTenBaihat());
+                txtArtistName.setText(listSong.get(position).getTenCasi());
                 UpdateTime();
               }
             }

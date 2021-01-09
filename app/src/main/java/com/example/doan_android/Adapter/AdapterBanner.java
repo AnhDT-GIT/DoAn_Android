@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doan_android.Activity.DsBaihat;
+import com.example.doan_android.Activity.ListSongActivity;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
@@ -52,7 +52,7 @@ public class AdapterBanner extends RecyclerView.Adapter<AdapterBanner.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(context, DsBaihat.class);
+                Intent intent= new Intent(context, ListSongActivity.class);
                 intent.putExtra("banner",bannerArrayList.get(position));
                 context.startActivity(intent);
             }

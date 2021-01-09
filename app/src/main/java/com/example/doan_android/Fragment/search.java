@@ -10,11 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.doan_android.Activity.DsBaihat;
-import com.example.doan_android.Activity.MainActivity;
+import com.example.doan_android.Activity.ListSongActivity;
 import com.example.doan_android.R;
 
 
@@ -34,7 +31,7 @@ public class search extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DsBaihat.class);
+                Intent intent = new Intent(getActivity(), ListSongActivity.class);
                 intent.putExtra("text",editText.getText().toString());
                 startActivity(intent);
             }

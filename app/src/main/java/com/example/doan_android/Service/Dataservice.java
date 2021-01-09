@@ -1,9 +1,7 @@
 package com.example.doan_android.Service;
 
-import android.util.Log;
-
 import com.example.doan_android.Model.Album;
-import com.example.doan_android.Model.Baihat;
+import com.example.doan_android.Model.Song;
 import com.example.doan_android.Model.Banner;
 import com.example.doan_android.Model.Playlist;
 
@@ -27,15 +25,15 @@ public interface Dataservice {
 
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Baihat>> GetDataBaihat(@Field("id_playlists") String id_playlists);
+    Call<List<Song>> GetDataBaihat(@Field("id_playlists") String id_playlists);
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Baihat>> GetDataAlbum(@Field("id_albums") String id_albums);
+    Call<List<Song>> GetDataAlbum(@Field("id_albums") String id_albums);
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Baihat>>GetDataBanner(@Field("id_banners") String id_banners);
+    Call<List<Song>>GetDataBanner(@Field("id_banners") String id_banners);
     @FormUrlEncoded
     @POST("baihat.php")
-    Call<List<Baihat>>GetTimkiem(@Field("tukhoa") String tukhoa);
+    Call<List<Song>>GetTimkiem(@Field("tukhoa") String tukhoa);
 
 }

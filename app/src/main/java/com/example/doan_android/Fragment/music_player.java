@@ -1,32 +1,16 @@
 package com.example.doan_android.Fragment;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.doan_android.Adapter.AdapterSong;
-import com.example.doan_android.Model.Baihat;
 import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 
 public class music_player extends Fragment {

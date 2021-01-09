@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/og_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
-        <activity android:name=".Activity.DsBaihat"></activity>
-        <activity android:name=".Activity.play_music"
-                  android:parentActivityName=".Activity.MainActivity">
+        <activity android:name=".Activity.ListSongActivity"></activity>
+        <activity android:name=".Activity.PlayMusicActivity"
+                  android:parentActivityName=".Activity.HomeActivity">
         </activity>
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

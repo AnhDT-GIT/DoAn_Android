@@ -2,38 +2,30 @@ package com.example.doan_android.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doan_android.Activity.DsBaihat;
-import com.example.doan_android.Activity.play_music;
-import com.example.doan_android.Model.Baihat;
-import com.example.doan_android.Model.Banner;
+import com.example.doan_android.Activity.PlayMusicActivity;
+import com.example.doan_android.Model.Song;
 import com.example.doan_android.R;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
 
   Context context;
-  ArrayList<Baihat> baihatArrayList;
+  ArrayList<Song> songArrayList;
 
-  public AdapterSong(Context context, ArrayList<Baihat> baihatArrayList) {
+  public AdapterSong(Context context, ArrayList<Song> songArrayList) {
     this.context = context;
-    this.baihatArrayList = baihatArrayList;
+    this.songArrayList = songArrayList;
   }
 
   @NonNull
@@ -48,15 +40,15 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-    Baihat baihat = baihatArrayList.get(position);
-    holder.itemtxtTenCaSi.setText(baihat.getTenCasi());
-    holder.itemtxtTenBaiHat.setText(baihat.getTenBaihat());
-    Picasso.get().load(baihat.getHinhBaihat()).into(holder.itemimgBaiHat);
+    Song song = songArrayList.get(position);
+    holder.itemtxtTenCaSi.setText(song.getTenCasi());
+    holder.itemtxtTenBaiHat.setText(song.getTenBaihat());
+    Picasso.get().load(song.getHinhBaihat()).into(holder.itemimgBaiHat);
     holder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent intent= new Intent(context, play_music.class);
-            intent.putExtra("baihats",baihatArrayList.get(position));
+            Intent intent= new Intent(context, PlayMusicActivity.class);
+            intent.putExtra("baihats", songArrayList.get(position));
             context.startActivity(intent);
         }
     });
@@ -64,7 +56,7 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
   }
 
   @Override
-  public int getItemCount() { return baihatArrayList.size(); }
+  public int getItemCount() { return songArrayList.size(); }
 
   public class ViewHolder extends RecyclerView.ViewHolder{
           TextView itemtxtTenBaiHat, itemtxtTenCaSi;
