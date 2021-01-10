@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,8 +37,9 @@ public class PlayMusicActivity extends AppCompatActivity {
     //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     //AdapterPlayerMusic adapterPlayerMusic;
 
+
     Song song;
-    ArrayList<Song> listSong = new ArrayList<>();
+
     AdapterPlayerMusic adapterPlayerMusic = new AdapterPlayerMusic(getSupportFragmentManager(),
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
@@ -48,7 +50,7 @@ public class PlayMusicActivity extends AppCompatActivity {
     MusicPlayerFragment musicPlayerFragment;
 
     boolean next = false;
-    int position = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,34 +60,41 @@ public class PlayMusicActivity extends AppCompatActivity {
         //Init
         LinkViews();
         EventClick();
-        GetData();
-        if (HomeActivity.mediaPlayer.isPlaying() && HomeActivity.mediaPlayer != null) {
-            HomeActivity.mediaPlayer.stop();
-            HomeActivity.mediaPlayer.release();
-            HomeActivity.mediaPlayer = null;
+        if(BackgroundActivity.check == 0){
+            if (BackgroundActivity.mediaPlayer.isPlaying() && BackgroundActivity.mediaPlayer != null) {
+                BackgroundActivity.mediaPlayer.stop();
+                BackgroundActivity.mediaPlayer.release();
+                BackgroundActivity.mediaPlayer = null;
+            }
+            GetData();
+            if (BackgroundActivity.listSong.size() > 0) {
+                //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
+                Picasso.get().load(BackgroundActivity.listSong.get(0).getHinhBaihat()).into(imvMusicPlayer);
+                txtSongName.setText(BackgroundActivity.listSong.get(0).getTenBaihat());
+                txtArtistName.setText(BackgroundActivity.listSong.get(0).getTenCasi());
+                new PlayMp3File().execute(BackgroundActivity.listSong.get(0).getUrlBaihat());
+                imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
+            }
+
         }
+
         //txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
         //System.out.print( "LOG: " + baihatArrayList.get(0).getTenBaihat());
-        if (listSong.size() > 0) {
-            //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
-            Picasso.get().load(listSong.get(0).getHinhBaihat()).into(imvMusicPlayer);
-            txtSongName.setText(listSong.get(0).getTenBaihat());
-            txtArtistName.setText(listSong.get(0).getTenCasi());
-            new PlayMp3File().execute(listSong.get(0).getUrlBaihat());
-            imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
-        }
+
 
         //BACK
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlayMusicActivity.this, HomeActivity.class);
+                Intent intent = new Intent(PlayMusicActivity.this, BackgroundActivity.class);
                 startActivity(intent);
             }
         });
 
+        BackgroundActivity.check = 0;
 
     }
+
 
     private void LinkViews() {
         //tabPlayerMusic = findViewById(R.id.tabPlayerMusic);
@@ -111,49 +120,11 @@ public class PlayMusicActivity extends AppCompatActivity {
         //tabPlayerMusic.getTabAt(1).setIcon(R.drawable.ic_baseline_text_fields_24);
     }
 
-    class PlayMp3File extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return strings[0];
-        }
-
-        @Override
-        protected void onPostExecute(String baihat) {
-            super.onPostExecute(baihat);
-            try {
-                HomeActivity.mediaPlayer = new MediaPlayer();
-                HomeActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                HomeActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        HomeActivity.mediaPlayer.stop();
-                        HomeActivity.mediaPlayer.reset();
-                    }
-                });
-                HomeActivity.mediaPlayer.setDataSource(baihat);
-                HomeActivity.mediaPlayer.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            /*if(mediaPlayer.isPlaying()){
-                mediaPlayer.stop();
-                System.out.println("co du lieu");
-            }
-            else
-            {
-                System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
-            }*/
-            HomeActivity.mediaPlayer.start();
-            TimeSong();
-            UpdateTime();
-        }
-    }
 
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-        txtTotalTimeSong.setText(simpleDateFormat.format(HomeActivity.mediaPlayer.getDuration()));
-        barTime.setMax(HomeActivity.mediaPlayer.getDuration());
+        txtTotalTimeSong.setText(simpleDateFormat.format(BackgroundActivity.mediaPlayer.getDuration()));
+        barTime.setMax(BackgroundActivity.mediaPlayer.getDuration());
     }
 
     private void UpdateTime() {
@@ -161,12 +132,12 @@ public class PlayMusicActivity extends AppCompatActivity {
         handlerFirst.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (HomeActivity.mediaPlayer != null) {
-                    barTime.setProgress(HomeActivity.mediaPlayer.getCurrentPosition());
+                if (BackgroundActivity.mediaPlayer != null) {
+                    barTime.setProgress(BackgroundActivity.mediaPlayer.getCurrentPosition());
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-                    txtTimeSong.setText(simpleDateFormat.format(HomeActivity.mediaPlayer.getCurrentPosition()));
+                    txtTimeSong.setText(simpleDateFormat.format(BackgroundActivity.mediaPlayer.getCurrentPosition()));
                     handlerFirst.postDelayed(this, 1000);
-                    HomeActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    BackgroundActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
                             next = true;
@@ -180,19 +151,19 @@ public class PlayMusicActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (next == true) {
-                    if (position < (listSong.size())) {
+                    if (BackgroundActivity.position < (BackgroundActivity.listSong.size())) {
                         imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
-                        position++;
-                        if (position > (listSong.size() - 1)) {
-                            position = 0;
+                        BackgroundActivity.position++;
+                        if (BackgroundActivity.position > (BackgroundActivity.listSong.size() - 1)) {
+                            BackgroundActivity.position = 0;
                         }
-                        new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
+                        new PlayMp3File().execute(BackgroundActivity.listSong.get(BackgroundActivity.position).getUrlBaihat());
                         //musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
                         //NEXT LOG
-                        Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imvMusicPlayer);
-                        System.out.println("NEXT LOG: " + listSong.get(position).getHinhBaihat());
-                        txtSongName.setText(listSong.get(position).getTenBaihat());
-                        txtArtistName.setText(listSong.get(position).getTenCasi());
+                        Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
+                        System.out.println("NEXT LOG: " + BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat());
+                        txtSongName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenBaihat());
+                        txtArtistName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenCasi());
                         //musicplayer.setRefreshing
 
                     }
@@ -215,22 +186,101 @@ public class PlayMusicActivity extends AppCompatActivity {
         }, 1000);
     }
 
+
     private void GetData() {
         Intent intent = getIntent();
-        listSong.clear();
+        BackgroundActivity.listSong.clear();
         if (intent != null) {
             if (intent.hasExtra("song")) {
                 song = (Song) intent.getParcelableExtra("song");
-                listSong.add(song);
+                BackgroundActivity.listSong.add(song);
             }
             if (intent.hasExtra("listSong")) {
                 ArrayList<Song> songs = intent.getParcelableArrayListExtra("listSong");
                 for (Song item : songs) {
                     // tất cả các bài hát được add vào bài hát array list
-                    listSong.add(item);
+                    BackgroundActivity.listSong.add(item);
                 }
             }
         }
+    }
+
+    public class PlayMp3File extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return strings[0];
+        }
+
+        @Override
+        protected void onPostExecute(String song) {
+            super.onPostExecute(song);
+            try {
+                BackgroundActivity.mediaPlayer = new MediaPlayer();
+                BackgroundActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                BackgroundActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        BackgroundActivity.mediaPlayer.stop();
+                        BackgroundActivity.mediaPlayer.reset();
+                    }
+                });
+                BackgroundActivity.mediaPlayer.setDataSource(song);
+                BackgroundActivity.mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+                System.out.println("co du lieu");
+            }
+            else
+            {
+                System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
+            }*/
+            BackgroundActivity.mediaPlayer.start();
+            TimeSong();
+            UpdateTime();
+        }
+    }
+
+    public static class PlayMp3 extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return strings[0];
+        }
+
+        @Override
+        protected void onPostExecute(String song) {
+            super.onPostExecute(song);
+            try {
+                BackgroundActivity.mediaPlayer = new MediaPlayer();
+                BackgroundActivity.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                BackgroundActivity.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        BackgroundActivity.mediaPlayer.stop();
+                        BackgroundActivity.mediaPlayer.reset();
+                    }
+                });
+                BackgroundActivity.mediaPlayer.setDataSource(song);
+                BackgroundActivity.mediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+                System.out.println("co du lieu");
+            }
+            else
+            {
+                System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkk");
+            }*/
+            BackgroundActivity.mediaPlayer.start();
+
+        }
+
     }
 
     private void EventClick() {
@@ -239,9 +289,9 @@ public class PlayMusicActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (adapterPlayerMusic.getItem(1) != null) {
-                    if (listSong.size() > 0) {
+                    if (BackgroundActivity.listSong.size() > 0) {
                         //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
-                        Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imvMusicPlayer);
+                        Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
                         handler.removeCallbacks(this);
                     } else {
                         handler.postDelayed(this, 300);
@@ -252,11 +302,11 @@ public class PlayMusicActivity extends AppCompatActivity {
         imvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (HomeActivity.mediaPlayer.isPlaying()) {
-                    HomeActivity.mediaPlayer.pause();
+                if (BackgroundActivity.mediaPlayer.isPlaying()) {
+                    BackgroundActivity.mediaPlayer.pause();
                     imvPlay.setImageResource(R.drawable.ic_baseline_play_arrow_24);
                 } else {
-                    HomeActivity.mediaPlayer.start();
+                    BackgroundActivity.mediaPlayer.start();
                     imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
                 }
             }
@@ -274,32 +324,32 @@ public class PlayMusicActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                HomeActivity.mediaPlayer.seekTo(seekBar.getProgress());
+                BackgroundActivity.mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
 
         imvPlayNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listSong.size() > 0) {
-                    if (HomeActivity.mediaPlayer.isPlaying() || HomeActivity.mediaPlayer != null) {
-                        HomeActivity.mediaPlayer.stop();
-                        HomeActivity.mediaPlayer.release();
-                        HomeActivity.mediaPlayer = null;
+                if (BackgroundActivity.listSong.size() > 0) {
+                    if (BackgroundActivity.mediaPlayer.isPlaying() || BackgroundActivity.mediaPlayer != null) {
+                        BackgroundActivity.mediaPlayer.stop();
+                        BackgroundActivity.mediaPlayer.release();
+                        BackgroundActivity.mediaPlayer = null;
                     }
-                    if (position < (listSong.size())) {
+                    if (BackgroundActivity.position < (BackgroundActivity.listSong.size())) {
                         imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
-                        position++;
-                        if (position > (listSong.size() - 1)) {
-                            position = 0;
+                        BackgroundActivity.position++;
+                        if (BackgroundActivity.position > (BackgroundActivity.listSong.size() - 1)) {
+                            BackgroundActivity.position = 0;
                         }
-                        new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
-                        musicPlayerFragment.imageURL = (listSong.get(position).getHinhBaihat());
+                        new PlayMp3File().execute(BackgroundActivity.listSong.get(BackgroundActivity.position).getUrlBaihat());
+                        musicPlayerFragment.imageURL = (BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat());
                         //NEXT LOG
                         //System.out.println("NEXT LOG: " + baihatArrayList.get(position).getHinhBaihat());
-                        Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imvMusicPlayer);
-                        txtSongName.setText(listSong.get(position).getTenBaihat());
-                        txtArtistName.setText(listSong.get(position).getTenCasi());
+                        Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
+                        txtSongName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenBaihat());
+                        txtArtistName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenCasi());
                         UpdateTime();
                         //musicplayer.setRefreshing
                     }
@@ -321,25 +371,25 @@ public class PlayMusicActivity extends AppCompatActivity {
         imvPlayPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listSong.size() > 0) {
-                    if (HomeActivity.mediaPlayer.isPlaying() || HomeActivity.mediaPlayer != null) {
-                        HomeActivity.mediaPlayer.stop();
-                        HomeActivity.mediaPlayer.release();
-                        HomeActivity.mediaPlayer = null;
+                if (BackgroundActivity.listSong.size() > 0) {
+                    if (BackgroundActivity.mediaPlayer.isPlaying() || BackgroundActivity.mediaPlayer != null) {
+                        BackgroundActivity.mediaPlayer.stop();
+                        BackgroundActivity.mediaPlayer.release();
+                        BackgroundActivity.mediaPlayer = null;
                     }
-                    if (position < (listSong.size())) {
+                    if (BackgroundActivity.position < (BackgroundActivity.listSong.size())) {
                         imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
-                        position--;
+                        BackgroundActivity.position--;
 
-                        if (position < 0) {
-                            position = listSong.size() - 1;
+                        if (BackgroundActivity.position < 0) {
+                            BackgroundActivity.position = BackgroundActivity.listSong.size() - 1;
                         }
 
-                        new PlayMp3File().execute(listSong.get(position).getUrlBaihat());
+                        new PlayMp3File().execute(BackgroundActivity.listSong.get(BackgroundActivity.position).getUrlBaihat());
                         //musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
-                        Picasso.get().load(listSong.get(position).getHinhBaihat()).into(imvMusicPlayer);
-                        txtSongName.setText(listSong.get(position).getTenBaihat());
-                        txtArtistName.setText(listSong.get(position).getTenCasi());
+                        Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
+                        txtSongName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenBaihat());
+                        txtArtistName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenCasi());
                         UpdateTime();
                     }
                 }
@@ -356,6 +406,43 @@ public class PlayMusicActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("PlayMusic", "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("PlayMusic", "onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("PlayMusic", "onPause");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("PlayMusic", "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("PlayMusic", "onStop");
 
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("PlayMusic", "onRestart");
+    }
+
 }

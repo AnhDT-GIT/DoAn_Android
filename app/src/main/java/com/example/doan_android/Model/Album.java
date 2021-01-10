@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class Album implements Serializable {
+
     @SerializedName("id_album")
     @Expose
     private String idAlbum;

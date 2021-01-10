@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/og_icon"
@@ -11,11 +12,11 @@
         android:roundIcon="@mipmap/og_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
-        <activity android:name=".Activity.ListSongActivity"></activity>
-        <activity android:name=".Activity.PlayMusicActivity"
-                  android:parentActivityName=".Activity.HomeActivity">
-        </activity>
-        <activity android:name=".Activity.HomeActivity">
+        <activity android:name=".Activity.ListSongActivity" />
+        <activity
+            android:name=".Activity.PlayMusicActivity"
+            android:parentActivityName=".Activity.BackgroundActivity"></activity>
+        <activity android:name=".Activity.BackgroundActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

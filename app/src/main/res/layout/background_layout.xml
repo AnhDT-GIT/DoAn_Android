@@ -21,16 +21,17 @@
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@+id/tabMain"
+    android:layout_above="@+id/bottomPlayer"
     android:layout_marginBottom="0dp" />
 
-<!--  <include
+  <include
     android:id="@+id/bottomPlayer"
     layout="@layout/bottom_player"
     android:layout_width="match_parent"
     android:layout_height="65dp"
     android:layout_above="@+id/tabMain"
-    android:layout_marginBottom="0dp" />-->
+    android:layout_marginBottom="0dp" />
+
 
 
 </RelativeLayout>
