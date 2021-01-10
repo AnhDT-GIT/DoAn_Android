@@ -61,6 +61,7 @@ public class PlayMusicActivity extends AppCompatActivity {
         LinkViews();
         EventClick();
         if(BackgroundActivity.check == 0){
+            BackgroundActivity.position=0;
             if (BackgroundActivity.mediaPlayer.isPlaying() && BackgroundActivity.mediaPlayer != null) {
                 BackgroundActivity.mediaPlayer.stop();
                 BackgroundActivity.mediaPlayer.release();
@@ -68,6 +69,7 @@ public class PlayMusicActivity extends AppCompatActivity {
             }
             GetData();
             if (BackgroundActivity.listSong.size() > 0) {
+
                 //musicplayer.imageURL=baihatArrayList.get(0).getHinhBaihat();
                 Picasso.get().load(BackgroundActivity.listSong.get(0).getHinhBaihat()).into(imvMusicPlayer);
                 txtSongName.setText(BackgroundActivity.listSong.get(0).getTenBaihat());
@@ -75,7 +77,11 @@ public class PlayMusicActivity extends AppCompatActivity {
                 new PlayMp3File().execute(BackgroundActivity.listSong.get(0).getUrlBaihat());
                 imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
             }
-
+        } else{
+            Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
+            txtSongName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenBaihat());
+            txtArtistName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenCasi());;
+            imvPlay.setImageResource(R.drawable.ic_baseline_pause_24);
         }
 
         //txtMusicTenBaiHat.setText(baihatArrayList.get(0).getTenBaihat());
@@ -161,10 +167,9 @@ public class PlayMusicActivity extends AppCompatActivity {
                         //musicplayer.imageURL = (baihatArrayList.get(position).getHinhBaihat());
                         //NEXT LOG
                         Picasso.get().load(BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat()).into(imvMusicPlayer);
-                        System.out.println("NEXT LOG: " + BackgroundActivity.listSong.get(BackgroundActivity.position).getHinhBaihat());
                         txtSongName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenBaihat());
                         txtArtistName.setText(BackgroundActivity.listSong.get(BackgroundActivity.position).getTenCasi());
-                        //musicplayer.setRefreshing
+//                        musicplayer.setRefreshing
 
                     }
                     imvPlayPre.setClickable(false);
