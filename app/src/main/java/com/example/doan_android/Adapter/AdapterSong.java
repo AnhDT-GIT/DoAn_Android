@@ -48,7 +48,7 @@ public class AdapterSong extends RecyclerView.Adapter<AdapterSong.ViewHolder>{
         @Override
         public void onClick(View view) {
             Intent intent= new Intent(context, PlayMusicActivity.class);
-            intent.putExtra("baihats", listSong.get(position));
+            intent.putExtra("song", listSong.get(position));
             context.startActivity(intent);
         }
     });

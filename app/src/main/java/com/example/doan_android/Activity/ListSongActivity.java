@@ -30,7 +30,7 @@ public class ListSongActivity extends AppCompatActivity {
     Playlist playlist;
     Album album;
     Banner banner;
-    Button playAll;
+    Button btnPlayAll;
 
     ArrayList<Song> listSong;
     AdapterSong adapterSong;
@@ -41,10 +41,12 @@ public class ListSongActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ds_baihat);
+        setContentView(R.layout.activity_list_song);
         getData();
-        rcvListSong = findViewById(R.id.lvListSongs);
-        playAll = findViewById(R.id.btnPlayAll);
+
+        rcvListSong = findViewById(R.id.rcvListSong);
+        btnPlayAll = findViewById(R.id.btnPlayAll);
+
         if (playlist != null) {
             getDataPlaylist(playlist.getIdPlaylist());
         }
@@ -57,21 +59,21 @@ public class ListSongActivity extends AppCompatActivity {
         if (text != null) {
             getDataSearch(text);
         }
-        playAll.setOnClickListener(new View.OnClickListener() {
+        btnPlayAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ListSongActivity.this,
                         PlayMusicActivity.class);
-                intent.putParcelableArrayListExtra("danhsach", listSong);
+                intent.putParcelableArrayListExtra("listSong", listSong);
                 startActivity(intent);
             }
         });
     }
 
     private void getDataSearch(String search) {
-        DataService dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetTimkiem(search);
-        callback.enqueue(new Callback<List<Song>>() {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.GetTimkiem(search);
+        callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 listSong = (ArrayList<Song>) response.body();
@@ -88,9 +90,9 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataPlaylist(String playlistId) {
-        DataService dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetDataBaihat(playlistId);
-        callback.enqueue(new Callback<List<Song>>() {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.GetDataBaihat(playlistId);
+        callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 listSong = (ArrayList<Song>) response.body();
@@ -107,9 +109,9 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataAlbum(String albumId) {
-        DataService dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetDataAlbum(albumId);
-        callback.enqueue(new Callback<List<Song>>() {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.GetDataAlbum(albumId);
+        callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 listSong = (ArrayList<Song>) response.body();
@@ -126,9 +128,9 @@ public class ListSongActivity extends AppCompatActivity {
     }
 
     private void getDataBanner(String bannerId) {
-        DataService dataservice = APIService.getService();
-        Call<List<Song>> callback = dataservice.GetDataBanner(bannerId);
-        callback.enqueue(new Callback<List<Song>>() {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.GetDataBanner(bannerId);
+        callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 listSong = (ArrayList<Song>) response.body();

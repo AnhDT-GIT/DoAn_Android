@@ -219,12 +219,12 @@ public class PlayMusicActivity extends AppCompatActivity {
         Intent intent = getIntent();
         listSong.clear();
         if (intent != null) {
-            if (intent.hasExtra("baihats")) {
-                song = (Song) intent.getParcelableExtra("baihats");
+            if (intent.hasExtra("song")) {
+                song = (Song) intent.getParcelableExtra("song");
                 listSong.add(song);
             }
-            if (intent.hasExtra("danhsach")) {
-                ArrayList<Song> songs = intent.getParcelableArrayListExtra("danhsach");
+            if (intent.hasExtra("listSong")) {
+                ArrayList<Song> songs = intent.getParcelableArrayListExtra("listSong");
                 for (Song item : songs) {
                     // tất cả các bài hát được add vào bài hát array list
                     listSong.add(item);
