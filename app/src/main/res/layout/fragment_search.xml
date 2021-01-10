@@ -30,10 +30,10 @@
 
         <EditText
           android:id="@+id/edtSearch"
-            android:textColor="@color/white"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/searchsong"
+            android:textColor="@color/white"
           android:inputType="textCapSentences"
           android:padding="10dp"/>
 
